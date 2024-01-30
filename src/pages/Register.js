@@ -44,13 +44,10 @@ export default function Register() {
 		.then(result => result.json())
 		.then(data => {
 			if(data) {
-				// Swal.fire({
-				// 	title: "Success",
-				// 	icon: "success",
-				// 	text: "You are now registered."
-				// })
-
-				alert("You are now registered.")
+				Swal.fire({
+					icon: "success",
+					text: "You are now registered."
+				})
 
 				setFirstName('');
 				setLastName('');
@@ -61,9 +58,8 @@ export default function Register() {
 				setConfirmPassword('');
 			} else {
 				Swal.fire({
-					title: "Error",
 					icon: "error",
-					text: "Please try again."
+					text: "Email or Username was already taken."
 				})
 			}
 		})

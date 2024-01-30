@@ -1,6 +1,8 @@
 import {Button, Form, Container, Row, Col} from 'react-bootstrap';
 import {useState, useEffect, useContext} from 'react';
 
+import UserContext from '../UserContext.js';
+
 import Swal from 'sweetalert2';
 
 export default function Login() {
@@ -8,6 +10,8 @@ export default function Login() {
 	const [password, setPassword] = useState("");
 
 	const [isActive, setIsActive] = useState(true);
+
+	const {user, setUser} = useContext(UserContext);
 
 	useEffect(() => {
 		if(email !== "" && password !== "" ) {
@@ -58,7 +62,7 @@ export default function Login() {
 	}
 
 	const retrieveUserDetails = (token) => {
-		fetch('http://localhost:3001/users/details', {
+		fetch('http://ec2-3-16-181-70.us-east-2.compute.amazonaws.com/b2/users/details', {
 			method: "POST",
 			headers: {
 				'Authorization': `Bearer ${token}`
@@ -66,7 +70,6 @@ export default function Login() {
 		})
 		.then(result => result.json())
 		.then(data => {
-			// console.log(data)
 			setUser({
 				id: data._id,
 				isAdmin: data.isAdmin
@@ -79,7 +82,7 @@ export default function Login() {
 			<Row>
 				<Col className='col-3 p-5 mt-5'>
 					<h2 className='text-center'>Digibees</h2>
-					<h2 className='text-center my-5'>Register an account</h2>
+					<h2 className='text-center my-5'>Login your account</h2>
 					<Form onSubmit={event => loginUser(event)}>
 					  <Form.Group className="mb-3" controlId="email">
 					    <Form.Label>Email</Form.Label>

@@ -1,6 +1,22 @@
+// Pages
+import Register from './pages/Register.js';
+import Login from './pages/Login.js';
+
+// Routing
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+
+import {useState, useEffect} from 'react';
+
 function App() {
   return (
-    <h1>Hello, World!</h1>
+
+      <Router>
+        <Routes>
+          <Route path='/register' element={<Register/>}/>
+          <Route path='/login' element={<Login/>}/>
+        </Routes>
+      </Router>
+
   );
 }
 

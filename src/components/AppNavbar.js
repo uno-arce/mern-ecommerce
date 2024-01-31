@@ -8,12 +8,10 @@ import UserContext from '../UserContext.js';
 export default function AppNavbar() {
 	const {user} = useContext(UserContext);
 
-	console.log(user);
-
 	return(
 	<Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
-        <Navbar.Brand href="#home" className="mx-4">Db</Navbar.Brand>
+        <Navbar.Brand as = {NavLink} to = "/" className="mx-4">Db</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-start">
           <Nav className="me-auto">

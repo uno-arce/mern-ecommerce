@@ -38,7 +38,6 @@ export default function Login() {
 		})
 		.then(result => result.json())
 		.then(data => {
-			// console.log(data);
 
 			if(data.accessToken) {
 				// console.log(data.accessToken);
@@ -51,7 +50,6 @@ export default function Login() {
 				})
 				setEmail('');
 				setPassword('');
-				navigate('/');
 			} else {
 				Swal.fire({
 					title: "Authentication Failed",
@@ -75,13 +73,13 @@ export default function Login() {
 		.then(data => {
 			setUser({
 				id: data._id,
-				isAdmin: data.isAdmin
+				role: data.role
 			})
 		})
 	}
 
 	return(
-		(user.id !== null) ? <Navigate to = '/'/>
+		(user.id !== null) ? <Navigate to = {user.role !== 'Admin' ? '/' : '/dashboard'}/>
 		:
 		<Container fluid>
 			<Row>
@@ -102,7 +100,7 @@ export default function Login() {
 
 					  <Form.Group className="mb-3" controlId="password">
 					    <Form.Label>Password</Form.Label>
-					    <Form.Control type="text"
+					    <Form.Control type="password"
 					    required
 					    value = {password} 
 					    onChange = {event => {

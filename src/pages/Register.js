@@ -1,11 +1,15 @@
 import {Button, Form, Container, Row, Col} from 'react-bootstrap';
 import {useState, useEffect, useContext} from 'react';
 
-import {Navigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
+import UserContext from '../UserContext.js';
 
 import Swal from 'sweetalert2';
 
 export default function Register() {
+	const {user} = useContext(UserContext);
+	const navigate = useNavigate();
+
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [username, setUsername] = useState("");
@@ -56,6 +60,8 @@ export default function Register() {
 				setEmail('');
 				setPassword('');
 				setConfirmPassword('');
+
+				navigate('/login');
 			} else {
 				Swal.fire({
 					icon: "error",
@@ -66,9 +72,11 @@ export default function Register() {
 	}
 
 	return(
+		(user.id !== null) ? <Navigate to = '/courses'/>
+		:
 		<Container fluid>
 			<Row>
-				<Col className='col-3 p-5 mt-5'>
+				<Col className='col-3 p-4'>
 					<h2 className='text-center'>Digibees</h2>
 					<h2 className='text-center my-5'>Register an account</h2>
 					<Form onSubmit={event => registerUser(event)}>

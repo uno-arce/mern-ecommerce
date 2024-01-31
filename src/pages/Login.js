@@ -2,6 +2,7 @@ import {Button, Form, Container, Row, Col} from 'react-bootstrap';
 import {useState, useEffect, useContext} from 'react';
 
 import UserContext from '../UserContext.js';
+import {useNavigate, Navigate} from 'react-router-dom';
 
 import Swal from 'sweetalert2';
 
@@ -12,6 +13,7 @@ export default function Login() {
 	const [isActive, setIsActive] = useState(true);
 
 	const {user, setUser} = useContext(UserContext);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if(email !== "" && password !== "" ) {
@@ -45,10 +47,11 @@ export default function Login() {
 				Swal.fire({
 					title: "Login Successfull",
 					icon: "success",
-					text: "Welcome to Zuitt!"
+					text: "Happy Shopping!"
 				})
 				setEmail('');
 				setPassword('');
+				navigate('/');
 			} else {
 				Swal.fire({
 					title: "Authentication Failed",
@@ -78,9 +81,11 @@ export default function Login() {
 	}
 
 	return(
+		(user.id !== null) ? <Navigate to = '/'/>
+		:
 		<Container fluid>
 			<Row>
-				<Col className='col-3 p-5 mt-5'>
+				<Col className='col-3 p-4'>
 					<h2 className='text-center'>Digibees</h2>
 					<h2 className='text-center my-5'>Login your account</h2>
 					<Form onSubmit={event => loginUser(event)}>

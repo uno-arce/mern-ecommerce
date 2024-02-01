@@ -1,20 +1,18 @@
-import {Button, Form, Container, Col, Row, InputGroup} from 'react-bootstrap';
-import {useState, useEffect, useContext} from 'react';
-
-import {Navigate} from "react-router-dom";
-
-import UserContext from "../UserContext.js";
+import {Button, Container, Row, Col, Form, InputGroup} from 'react-bootstrap';
+import {useState, useContext, useEffect} from 'react'
+import UserContext from '../UserContext.js';
 
 import Swal from 'sweetalert2';
 
-export default function AddProduct() {
+export default function EditProduct() {
+	const {entity} = useContext(UserContext);
 
-	const {user} = useContext(UserContext);
+	console.log(entity);
 
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
-	const [price, setPrice] = useState(0);
 	const [stocks, setStocks] = useState(0);
+	const [price, setPrice] = useState(0);
 
 	const [isActive, setIsActive] = useState(true);
 
@@ -26,13 +24,24 @@ export default function AddProduct() {
 		}
 	}, [name, description, price, stocks]);
 
-	function createProduct(event) {
+	useEffect(() => {
+		fetch(`${process.env.REACT_APP_API_URL}/products/${entity.id}`)
+		.then(result => result.json())
+		.then(data => {
+			setName(data.productName);
+			setDescription(data.productDescription);
+			setStocks(data.stocks);
+			setPrice(data.price);
+		})
+	}, [])
+
+	const editProduct = (event) => {
 		event.preventDefault();
 
-		fetch(`${process.env.REACT_APP_API_URL}/products/create-product`, {
-			method: 'POST',
+		fetch(`${process.env.REACT_APP_API_URL}/products/${entity.id}/update`, {
+			method: "PUT",
 			headers: {
-				"Content-Type" : "application/json",
+				"Content-Type": 'application/json',
 				Authorization: `Bearer ${localStorage.getItem('token')}`
 			},
 			body: JSON.stringify({
@@ -44,34 +53,29 @@ export default function AddProduct() {
 		})
 		.then(result => result.json())
 		.then(data => {
+			
 			if(data) {
-			Swal.fire({
-					title: "Product Added",
-					icon: "success",
-			})
-				setName('');
-				setDescription('');
-				setPrice(0);	
-				setStocks(0);			
+				Swal.fire({
+					title: 'Product Updated!',
+					icon: 'success',
+				})
 			} else {
-			Swal.fire({
-				title: "Unsuccessful Product Creation",
-				icon: "error",
-				text: "Please try again!"
-			})
-
+				Swal.fire({
+					title: 'Update Error',
+					icon: 'Error',
+					text: 'Please try Again!'
+				})
 			}
 		})
 	}
 
 	return(
-		(user.role !== 'Admin') ? <Navigate to = '/'/>
-		:
+		<>
 		<Container>
 			<Row>
 				<Col className = "col-4 mx-auto m-5">
-				<h1 className = "text-center mb-5">Create Product</h1>
-					<Form  onSubmit = {event => createProduct(event)} className = "p-2">
+				<h1 className = "text-center mb-5">Edit Product</h1>
+					<Form  onSubmit = {event => editProduct(event)} className = "p-2">
 						{/*Form Group for First Name*/}
 						<Form.Group className="mb-3" controlId="name">
 					       <Form.Label>Product Name</Form.Label>
@@ -148,5 +152,6 @@ export default function AddProduct() {
 				</Col>
 			</Row>
 		</Container>
-	);
+		</>
+	)
 }

@@ -7,6 +7,7 @@ import Login from './pages/Login.js';
 import Logout from './pages/Logout.js';
 import Dashboard from './pages/Dashboard.js';
 import AddProduct from './pages/AddProduct.js';
+import EditProduct from './pages/EditProduct.js';
 
 // Routing
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
@@ -62,9 +63,13 @@ function App() {
     }
   }, []);
 
+  const [entity, setEntity] = useState({
+    id: null,
+    fetch: null
+  });
 
   return (
-    <UserProvider value = {{user, setUser, unSetUser}}>
+    <UserProvider value = {{user, setUser, unSetUser, entity, setEntity}}>
       <Router>
         <AppNavbar/>
         <Routes>
@@ -74,6 +79,7 @@ function App() {
           <Route path='/logout' element={<Logout/>}/>
           <Route path='/dashboard' element={<Dashboard/>}/>
           <Route path='/addProduct' element={<AddProduct/>}/>
+          <Route path='/editProduct' element={<EditProduct/>}/>
         </Routes>
       </Router>
     </UserProvider>

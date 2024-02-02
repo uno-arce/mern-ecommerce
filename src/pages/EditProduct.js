@@ -1,13 +1,11 @@
 import {Button, Container, Row, Col, Form, InputGroup} from 'react-bootstrap';
 import {useState, useContext, useEffect} from 'react'
-import UserContext from '../UserContext.js';
+import { useParams } from 'react-router-dom';
 
 import Swal from 'sweetalert2';
 
 export default function EditProduct() {
-	const {entity} = useContext(UserContext);
-
-	console.log(entity);
+	const {productId} = useParams();
 
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
@@ -25,7 +23,7 @@ export default function EditProduct() {
 	}, [name, description, price, stocks]);
 
 	useEffect(() => {
-		fetch(`${process.env.REACT_APP_API_URL}/products/${entity.id}`)
+		fetch(`${process.env.REACT_APP_API_URL}/products/${productId}`)
 		.then(result => result.json())
 		.then(data => {
 			setName(data.productName);
@@ -38,7 +36,7 @@ export default function EditProduct() {
 	const editProduct = (event) => {
 		event.preventDefault();
 
-		fetch(`${process.env.REACT_APP_API_URL}/products/${entity.id}/update`, {
+		fetch(`${process.env.REACT_APP_API_URL}/products/${productId}/update`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": 'application/json',

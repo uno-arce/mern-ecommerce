@@ -3,21 +3,40 @@ import {Container, Row, Col, Button, Table, OverlayTrigger, ButtonGroup, InputGr
 
 import { useState, useEffect, useContext } from 'react';
 import {Link} from 'react-router-dom';
-import UserContext from '../UserContext.js';
+import UserContext from '../UserContext';
 
-export default function AdminView({productsData, fetchData}) {
 
+export default function AdminView() {
+	const {user} = useContext(UserContext);
 	const [products, setProducts] = useState([]);
-	const {setEntity} = useContext(UserContext);
+	const [productRows, setProductRows] = useState([]);
+
+	const fetchData = () => {
+		fetch(`${process.env.REACT_APP_API_URL}/products/all`, {
+			headers: {
+				Authorization : `Bearer ${localStorage.getItem('token')}`
+			}
+		})
+		.then(res => res.json())
+		.then(data => {
+		    setProducts(data);
+		 });
+	}
+
+	useEffect(()=>{
+		if(user.role === 'Admin') {
+			fetchData()
+		}
+	}, [user.role])
 
 	useEffect(() => {
-	  const productsArr = productsData.map((product, index) => {
+	  const productsArr = products.map((product, index) => {
 	    const popoverContent = (
 	    	<ButtonGroup vertical>
 	    	      <InputGroup>
 	    	      	<InputGroup.Text className="bi bi-pencil">
 	    	      	</InputGroup.Text>
-	    	      	<Button as = {Link} to = '/editProduct' onClick={() => setEntity({id: product._id, fetch: fetchData})} variant='secondary'>Edit</Button>
+	    	      	<Button as = {Link} to = {`/editProduct/${product._id}`} variant='secondary'>Edit</Button>
 	    	      </InputGroup>
 	    	      <InputGroup>
 	    	      	<InputGroup.Text className="bi bi-archive">
@@ -33,6 +52,7 @@ export default function AdminView({productsData, fetchData}) {
 	        trigger="click"
 	        placement="top"
 	        overlay={popoverContent}
+	        rootClose={true}
 	      >
 	        <tr>
 	          <td>{index + 1}</td>
@@ -49,8 +69,8 @@ export default function AdminView({productsData, fetchData}) {
 	    );
 	  });
 
-	  setProducts(productsArr);
-	}, [productsData]);
+	  setProductRows(productsArr);
+	}, [products]);
 
 	return(
 		<Container fluid>
@@ -74,7 +94,7 @@ export default function AdminView({productsData, fetchData}) {
 					    </tr>
 					  </thead>
 					  <tbody>
-					  	{products}
+					  	{productRows}
 					  </tbody>
 					</Table>
 				</Col>

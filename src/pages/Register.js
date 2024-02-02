@@ -72,7 +72,7 @@ export default function Register() {
 	}
 
 	return(
-		(user.id !== null) ? <Navigate to = '/courses'/>
+		(user.id !== null) ? <Navigate to = '/'/>
 		:
 		<Container fluid>
 			<Row>

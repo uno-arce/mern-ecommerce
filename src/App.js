@@ -8,6 +8,7 @@ import Logout from './pages/Logout.js';
 import Dashboard from './pages/Dashboard.js';
 import AddProduct from './pages/AddProduct.js';
 import EditProduct from './pages/EditProduct.js';
+import Shop from './pages/Shop.js';
 
 // Routing
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
@@ -30,9 +31,9 @@ function App() {
     localStorage.clear()
   }
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
+  useEffect(() => {
     if (token) {
       fetch('http://ec2-3-16-181-70.us-east-2.compute.amazonaws.com/b2/users/details', {
         method: "POST",
@@ -63,13 +64,8 @@ function App() {
     }
   }, []);
 
-  const [entity, setEntity] = useState({
-    id: null,
-    fetch: null
-  });
-
   return (
-    <UserProvider value = {{user, setUser, unSetUser, entity, setEntity}}>
+    <UserProvider value = {{user, setUser, unSetUser}}>
       <Router>
         <AppNavbar/>
         <Routes>
@@ -79,7 +75,8 @@ function App() {
           <Route path='/logout' element={<Logout/>}/>
           <Route path='/dashboard' element={<Dashboard/>}/>
           <Route path='/addProduct' element={<AddProduct/>}/>
-          <Route path='/editProduct' element={<EditProduct/>}/>
+          <Route path='/editProduct/:productId' element={<EditProduct/>}/>
+          <Route path='/shop' element={<Shop/>}/>
         </Routes>
       </Router>
     </UserProvider>

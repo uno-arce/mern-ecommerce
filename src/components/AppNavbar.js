@@ -16,7 +16,7 @@ export default function AppNavbar() {
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-start">
           <Nav className="me-auto">
             <Nav.Link as = {NavLink} to = "/" className="mx-3">Home</Nav.Link>
-            <Nav.Link as = {NavLink} to = "/products" className="mx-3">Shop</Nav.Link>
+            <Nav.Link as = {NavLink} to = "/shop" className="mx-3">Shop</Nav.Link>
           </Nav>
           {
           	(user.id !== null) ?

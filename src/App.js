@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard.js';
 import AddProduct from './pages/AddProduct.js';
 import EditProduct from './pages/EditProduct.js';
 import Shop from './pages/Shop.js';
+import ViewProduct from './pages/ViewProduct.js';
 
 // Routing
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
@@ -77,6 +78,7 @@ function App() {
           <Route path='/addProduct' element={<AddProduct/>}/>
           <Route path='/editProduct/:productId' element={<EditProduct/>}/>
           <Route path='/shop' element={<Shop/>}/>
+          <Route path='/view/:productId' element={<ViewProduct/>}/>
         </Routes>
       </Router>
     </UserProvider>

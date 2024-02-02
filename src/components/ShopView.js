@@ -1,5 +1,7 @@
-import {Container, Row, Col} from 'react-bootstrap';
+import {Container, Row, Col, Button} from 'react-bootstrap';
 import { useState, useEffect, useContext } from 'react';
+import ViewProduct from '../pages/ViewProduct';
+import {Link} from 'react-router-dom';
 
 export default function ShopView({productsData}) {
 	const [products, setProducts] = useState([]);
@@ -16,13 +18,15 @@ export default function ShopView({productsData}) {
 	useEffect(() => {
 		const productsArr = products.map(product => {
 			return(
-				<Col key={product._id} className='mt-5'>
+				<Col key={product._id} className='mt-5 col-md-3'>
 				  <div className='product-card'>
-				    <div className='bg-body-secondary flex-grow-1' style={{ height: '300px' }}>
-				    </div>
+				    <Row className='bg-body-tertiary mb-3' style={{ height: '300px' }}>
+				    </Row>
 				    <h6>{product.productName}</h6>
 				    <p>₱{product.price}</p>
-				    <button>Details</button>
+				    <div className='d-flex justify-content-end'>
+				        <Button as = {Link} to = {`/view/${product._id}`} variant='secondary'><i class="bi bi-bag"></i></Button>
+				    </div>
 				  </div>
 				</Col>
 			)
@@ -37,7 +41,7 @@ export default function ShopView({productsData}) {
 			          <Col className='my-5 py-5' lg={{ span: 6, offset: 2 }} md={{ span: 8, offset: 2 }} sm={{ span: 10, offset: 1 }}>
 			            <h1>Digibee</h1>
 			            <h1 className='mb-5 mx-5 px-4'>Originals</h1>
-			            <h6>Shot memories using the Digibees Originals cameras</h6>
+			            <h6>Shot memories using the Digibees Originals Cameras</h6>
 			          </Col>
 			          <Col className='my-5 py-2 mt-auto'>
 			          	<h6 className='mx-5 px-2'>Starts at</h6>
@@ -45,9 +49,9 @@ export default function ShopView({productsData}) {
 			          </Col>
 			        </Row>
 			</Container>
-			<Container fluid>
+			<Container fluid className='mb-5'>
 				<Container>
-					<Row>
+					<Row className='gx-5 row-cols-md-4'>
 						{productRows}
 					</Row>
 				</Container>

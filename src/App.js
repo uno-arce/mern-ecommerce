@@ -10,6 +10,7 @@ import AddProduct from './pages/AddProduct.js';
 import EditProduct from './pages/EditProduct.js';
 import Shop from './pages/Shop.js';
 import ViewProduct from './pages/ViewProduct.js';
+import Checkout from './pages/Checkout.js';
 
 // Routing
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
@@ -79,6 +80,7 @@ function App() {
           <Route path='/editProduct/:productId' element={<EditProduct/>}/>
           <Route path='/shop' element={<Shop/>}/>
           <Route path='/view/:productId' element={<ViewProduct/>}/>
+          <Route path='/:productId/:qty/checkout' element={<Checkout/>}/>
         </Routes>
       </Router>
     </UserProvider>

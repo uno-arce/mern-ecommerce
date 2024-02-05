@@ -11,6 +11,8 @@ import EditProduct from './pages/EditProduct.js';
 import Shop from './pages/Shop.js';
 import ViewProduct from './pages/ViewProduct.js';
 import Checkout from './pages/Checkout.js';
+import Profile from './pages/Profile.js';
+import EditProfile from './pages/EditProduct';
 
 // Routing
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
@@ -81,6 +83,8 @@ function App() {
           <Route path='/shop' element={<Shop/>}/>
           <Route path='/view/:productId' element={<ViewProduct/>}/>
           <Route path='/:productId/:qty/checkout' element={<Checkout/>}/>
+          <Route path='/profile' element={<Profile/>}/>
+          <Route path='/profile/edit' element={<EditProfile/>}/>
         </Routes>
       </Router>
     </UserProvider>

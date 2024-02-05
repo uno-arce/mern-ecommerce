@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import ViewProduct from '../pages/ViewProduct';
 import {Link} from 'react-router-dom';
 
-export default function ShopView({productsData}) {
+export default function ShopView() {
 	const [products, setProducts] = useState([]);
 	const [productRows, setProductRows] = useState([]);
 

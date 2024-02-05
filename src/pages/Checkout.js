@@ -239,7 +239,7 @@ export default function Checkout() {
 									  	setPaymentMethod(event.target.value);
 									  }}
 									  />
-									  <InputGroup.Text>PayFriend</InputGroup.Text>
+									  <InputGroup.Text>PayPal</InputGroup.Text>
 									</InputGroup>
 								</Col>
 								<Col>

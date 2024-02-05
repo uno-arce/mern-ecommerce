@@ -1,10 +1,14 @@
 import {Container, Row, Col, Button, InputGroup} from 'react-bootstrap';
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import { useParams } from 'react-router-dom';
 import {Link} from 'react-router-dom';
+import UserContext from '../UserContext.js';
+
+import Swal from 'sweetalert2';
 
 export default function ViewProduct() {
 	const {productId} = useParams();
+	const {user} = useContext(UserContext);
 
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
@@ -72,6 +76,10 @@ export default function ViewProduct() {
 				quantity: quantity
 			})
 		})
+		Swal.fire({
+			title: "Added to Cart",
+			icon: "success",
+		})
 	}
 
 	return(
@@ -116,7 +124,9 @@ export default function ViewProduct() {
 						  <div className='d-inline-flex mx-4'>
 						    <InputGroup>
 						      <InputGroup.Text className="bi bi-bag"></InputGroup.Text>
-						      <Button as = {Link} to = {`/${productId}/${quantity}/checkout`} variant='dark'>
+						      <Button as = {Link} 
+						      to = {user.role === 'Admin' ? `/view/${productId}` : `/${productId}/${quantity}/checkout`} 
+						      variant='dark'>
 						        Checkout
 						      </Button>
 						    </InputGroup>

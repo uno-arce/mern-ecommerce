@@ -1,4 +1,5 @@
 import {Container, Row, Col, Button} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 export default function Hero() {
 	return(
@@ -7,7 +8,7 @@ export default function Hero() {
 				<Col className='text-center'>
 					<h1 className='mt-5'>Digibees</h1>
 					<h4 className='mt-5 pt-5 pb-5'>Like bees, discover rare digicams that you'll love</h4>
-					<Button className='mt-5'>Shop Now</Button>
+					<Button as = {Link} to = "/shop" className='mt-5'>Shop Now</Button>
 				</Col>
 			</Row>
 		</Container>

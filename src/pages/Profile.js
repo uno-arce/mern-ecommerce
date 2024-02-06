@@ -1,5 +1,6 @@
-import {Container, Row, Col, Button, InputGroup} from 'react-bootstrap';
-import {useState, useEffect} from 'react';
+import {Container, Row, Col, Button, InputGroup, Dropdown, DropdownButton} from 'react-bootstrap';
+import {useState, useEffect, useContext} from 'react';
+import {Link} from 'react-router-dom';
 
 import ProfileView from '../components/ProfileView.js';
 
@@ -9,8 +10,7 @@ export default function Profile() {
 	const [role, setRole] = useState('');
 	const [createdOn, setCreatedOn] = useState('');
 	const [data, setData] = useState({});
-
-	const [isFetched, setIsFetched] = useState(false);
+	const [profileView, setProfileView] = useState(null);
 
 	useEffect(() => {
 		fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
@@ -29,6 +29,8 @@ export default function Profile() {
 			setCreatedOn(formattedDate);
 
 			setData(data);
+
+			setProfileView(<ProfileView userData={data} />);
 		})
 	}, [])
 
@@ -61,13 +63,19 @@ export default function Profile() {
 		            <InputGroup.Text>
 		              <i className='bi bi-pencil'></i>
 		            </InputGroup.Text>
-		            <Button variant='secondary'>Edit</Button>
+		            <DropdownButton
+		              variant="secondary"
+		              title="Edit"
+		              id="input-group-dropdown-1"
+		            >
+		              <Dropdown.Item as = {Link} to = '/profile/edit'>Edit Profile</Dropdown.Item>
+		              <Dropdown.Item as = {Link} to = '/profile/change-password'>Change Password</Dropdown.Item>
+		            </DropdownButton>
 		          </InputGroup>
 		        </Col>
 		      </Row>
 		    </Container>
-		<ProfileView userData = {data}/>
+		{profileView}
 		</>
-		
 	);
 }

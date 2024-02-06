@@ -15,13 +15,20 @@ export default function ShopView() {
 		})
 	}, [])
 
+	console.log(products);
+
 	useEffect(() => {
 		const productsArr = products.map(product => {
 			return(
 				<Col key={product._id} className='mt-5 col-md-3'>
 				  <div className='product-card'>
-				    <Row className='bg-body-tertiary mb-3' style={{ height: '300px' }}>
-				    </Row>
+				    <div className='bg-body-tertiary mb-3' style={{ 
+				    	height: '300px',
+				    	backgroundImage: `url(${process.env.REACT_APP_API_URL}${product.image})`,
+				    	backgroundSize: 'cover',
+				    	backgroundPosition: 'center',
+				    	 }}>
+				    </div>
 				    <h6>{product.productName}</h6>
 				    <p>₱{product.price}</p>
 				    <div className='d-flex justify-content-end'>

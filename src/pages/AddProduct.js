@@ -15,6 +15,7 @@ export default function AddProduct() {
 	const [description, setDescription] = useState('');
 	const [price, setPrice] = useState(0);
 	const [stocks, setStocks] = useState(0);
+  const [image, setImage] = useState(null);
 
 	const [isActive, setIsActive] = useState(true);
 
@@ -29,18 +30,19 @@ export default function AddProduct() {
 	function createProduct(event) {
 		event.preventDefault();
 
+    const formData = new FormData();
+        formData.append('productName', name);
+        formData.append('productDescription', description);
+        formData.append('price', price.toString());
+        formData.append('stocks', stocks.toString());
+        formData.append('image', image);
+
 		fetch(`${process.env.REACT_APP_API_URL}/products/create-product`, {
 			method: 'POST',
 			headers: {
-				"Content-Type" : "application/json",
 				Authorization: `Bearer ${localStorage.getItem('token')}`
 			},
-			body: JSON.stringify({
-				productName: name,
-				productDescription: description,
-				stocks: stocks,
-				price: price
-			})
+			body: formData
 		})
 		.then(result => result.json())
 		.then(data => {
@@ -52,7 +54,8 @@ export default function AddProduct() {
 				setName('');
 				setDescription('');
 				setPrice(0);	
-				setStocks(0);			
+				setStocks(0);
+        setImage(null);			
 			} else {
 			Swal.fire({
 				title: "Unsuccessful Product Creation",
@@ -135,6 +138,15 @@ export default function AddProduct() {
 					         />
 					       </InputGroup>
 					     </Form.Group>
+
+               <Form.Group className="mb-3" controlId="image">
+                  <Form.Label>Product Image</Form.Label>
+                    <Form.Control
+                      type="file"
+                      accept="image/*"
+                      onChange={(event) => setImage(event.target.files[0])} // Set the selected image file
+                      required />
+               </Form.Group>
 
 					     <Button disabled = {isActive} variant="primary" type="submit">
 					       Submit

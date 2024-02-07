@@ -24,6 +24,7 @@ export default function ShopView() {
 				  <div className='product-card'>
 				    <div className='bg-body-tertiary mb-3' style={{ 
 				    	height: '300px',
+				    	width: '300px',
 				    	backgroundImage: `url(${process.env.REACT_APP_API_URL}${product.image})`,
 				    	backgroundSize: 'cover',
 				    	backgroundPosition: 'center',

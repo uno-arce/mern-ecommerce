@@ -9,9 +9,9 @@ export default function AppNavbar() {
 	const {user} = useContext(UserContext);
 
 	return(
-	<Navbar expand="lg" className="bg-body-tertiary">
+	<Navbar expand="lg" sticky='top' className='m-0 p-0'>
       <Container fluid>
-        <Navbar.Brand as = {NavLink} to = "/" className="mx-lg-4">Db</Navbar.Brand>
+        <Navbar.Brand as = {NavLink} to = "/" className="mx-lg-4"></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-start">
           <Nav className="me-auto">

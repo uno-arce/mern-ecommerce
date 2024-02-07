@@ -1,5 +1,5 @@
 import ArchiveProduct from './ArchiveProduct.js';
-import {Container, Row, Col, Button, Table, OverlayTrigger, ButtonGroup, InputGroup} from 'react-bootstrap';
+import {Container, Row, Col, Button, Table, OverlayTrigger, ButtonGroup, InputGroup, Accordion} from 'react-bootstrap';
 
 import { useState, useEffect, useContext } from 'react';
 import {Link} from 'react-router-dom';
@@ -29,43 +29,119 @@ export default function AdminView() {
 		}
 	}, [user.role])
 
+	// useEffect(() => {
+	//   const productsArr = products.map((product, index) => {
+	//     const popoverContent = (
+	//     	<ButtonGroup vertical>
+	//     	      <InputGroup>
+	//     	      	<InputGroup.Text className="bi bi-pencil">
+	//     	      	</InputGroup.Text>
+	//     	      	<Button as = {Link} to = {`/editProduct/${product._id}`} variant='secondary'>Edit</Button>
+	//     	      </InputGroup>
+	//     	      <InputGroup>
+	//     	      	<InputGroup.Text className="bi bi-archive">
+	//     	      	</InputGroup.Text>
+	//     	      	<ArchiveProduct productId = {product._id} isActive = {product.isActive} fetchData = {fetchData}/>
+	//     	      </InputGroup>
+	//     	</ButtonGroup>
+	//     );
+
+	//     return (
+	//       <OverlayTrigger
+	//         key={product._id}
+	//         trigger="click"
+	//         placement="top"
+	//         overlay={popoverContent}
+	//         rootClose={true}
+	//       >
+	//         <tr>
+	//           <td>{index + 1}</td>
+	//           <td>{product.productName}</td>
+	//           <td>{product.productDescription}</td>
+	//           <td>{product.price}</td>
+	//           <td>{product.stocks}</td>
+	//           <td>{product.sold}</td>
+	//           <td className={product.isActive ? 'text-success' : 'text-danger'}>
+	//             {product.isActive ? 'available' : 'unavailable'}
+	//           </td>
+	//         </tr>
+	//       </OverlayTrigger>
+	//     );
+	//   });
+
+	//   setProductRows(productsArr);
+	// }, [products]);
+
 	useEffect(() => {
 	  const productsArr = products.map((product, index) => {
-	    const popoverContent = (
-	    	<ButtonGroup vertical>
-	    	      <InputGroup>
-	    	      	<InputGroup.Text className="bi bi-pencil">
-	    	      	</InputGroup.Text>
-	    	      	<Button as = {Link} to = {`/editProduct/${product._id}`} variant='secondary'>Edit</Button>
-	    	      </InputGroup>
-	    	      <InputGroup>
-	    	      	<InputGroup.Text className="bi bi-archive">
-	    	      	</InputGroup.Text>
-	    	      	<ArchiveProduct productId = {product._id} isActive = {product.isActive} fetchData = {fetchData}/>
-	    	      </InputGroup>
-	    	</ButtonGroup>
-	    );
-
 	    return (
-	      <OverlayTrigger
-	        key={product._id}
-	        trigger="click"
-	        placement="top"
-	        overlay={popoverContent}
-	        rootClose={true}
-	      >
-	        <tr>
-	          <td>{index + 1}</td>
-	          <td>{product.productName}</td>
-	          <td>{product.productDescription}</td>
-	          <td>{product.price}</td>
-	          <td>{product.stocks}</td>
-	          <td>{product.sold}</td>
-	          <td className={product.isActive ? 'text-success' : 'text-danger'}>
-	            {product.isActive ? 'Available' : 'Unavailable'}
-	          </td>
-	        </tr>
-	      </OverlayTrigger>
+	     	<Accordion className='mt-2'>
+	          	<Accordion.Item eventKey={product._id}>
+	          		<Accordion.Header>
+	          			<div className='me-4'>{index + 1}</div>
+	          			<div className='d-flex flex-column'>
+	          				<div className='mb-2'>{product.productName}</div>
+	          				<div className='d-flex'>
+	          					<i className={`bi bi-circle-fill me-2 ${product.isActive ? 'text-success' : 'text-danger'}`}></i>  
+		          				<div className={product.isActive ? 'text-success' : 'text-danger'}>
+		          					{product.isActive ? 'Available' : 'Unavailable'}
+		          				</div>
+	          				</div>
+	          			</div>
+	          		</Accordion.Header>
+	          		<Accordion.Body>
+	          			<div className='mb-3'>{product.productDescription}</div> 
+	          			<h6>Stats</h6>
+	          			<div className='d-flex mb-3'>
+	          				<div className='me-1'>
+	          					<InputGroup>
+	          						<InputGroup.Text>
+	          						₱
+	          						</InputGroup.Text>
+	          						<InputGroup.Text>
+	          							{product.price}
+	          						</InputGroup.Text>
+	          					</InputGroup>
+	          				</div>
+	          				<div className='me-1'>
+	          					<InputGroup>
+	          						<InputGroup.Text className="bi bi-bag-check">
+	          						</InputGroup.Text>
+	          						<InputGroup.Text>
+	          							{product.sold} sold
+	          						</InputGroup.Text>
+	          					</InputGroup>
+	          				</div>
+	          				<div>
+	          					<InputGroup>
+	          						<InputGroup.Text className="bi bi-cart">
+	          						</InputGroup.Text>
+	          						<InputGroup.Text>
+	          							{product.stocks} left
+	          						</InputGroup.Text>
+	          					</InputGroup>
+	          				</div>
+	          			</div>
+	          			<h6>Actions</h6>
+	          			<div className='d-flex'>
+	          				<div className='me-1'>
+	          					<InputGroup>
+	          						<InputGroup.Text className="bi bi-pencil">
+	          						</InputGroup.Text>
+	          						<Button as = {Link} to = {`/editProduct/${product._id}`} variant='secondary'>Edit</Button>
+	          					</InputGroup>
+	          				</div>
+	          				<div>
+	          					<InputGroup>
+	          						<InputGroup.Text className="bi bi-archive">
+	          						</InputGroup.Text>
+	          						<ArchiveProduct productId = {product._id} isActive = {product.isActive} fetchData = {fetchData}/>
+	          					</InputGroup>
+	          				</div>
+	          			</div>
+	          		</Accordion.Body>
+	          	</Accordion.Item>
+	        </Accordion>
 	    );
 	  });
 
@@ -73,32 +149,33 @@ export default function AdminView() {
 	}, [products]);
 
 	return(
-		<Container fluid>
-			<h2 className='mt-lg-5 mx-lg-5 px-lg-5 mt-4'>Welcome back,</h2>
-			<div className='d-flex justify-content-between align-items-center mb-4'>
-				<h3 className='mt-lg-5 mx-lg-5 px-lg-5 mt-4'>Products</h3>
-				<Button as = {Link} to = '/addProduct' className='mt-lg-5 mx-lg-5 px-lg-5 mt-4' variant="primary">Create</Button>
-			</div>
+		<>
+		<Container fluid className='bg-body-secondary py-4'>
 			<Row>
-				<Col className="mx-lg-5 px-lg-5">
-					<Table hover responsive>
-					  <thead>
-					    <tr>
-					      <th>No.</th>
-					      <th>Name</th>
-					      <th>Description</th>
-					      <th>Price</th>
-					      <th>Stocks</th>
-					      <th>Sold</th>
-					      <th>Availability</th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					  	{productRows}
-					  </tbody>
-					</Table>
+				<Col>
+					<div>
+						<h2 className='mt-lg-5 mx-lg-5 px-lg-5'>Welcome back,</h2>
+					</div>
+					<div className='d-flex justify-content-between align-items-center mt-lg-5 '>
+						<h4 className='mx-lg-5 px-lg-5 mt-4'>Products</h4>
+						<div>
+							<InputGroup className='me-lg-5 pe-lg-5 mt-4'>
+								<InputGroup.Text className="bi bi-patch-plus">
+								</InputGroup.Text>
+								<Button as = {Link} to = '/addProduct' variant='secondary'>Create</Button>
+							</InputGroup>
+						</div>
+					</div>
 				</Col>
 			</Row>
 		</Container>
+		<Container fluid>
+			<Row>
+				<Col className="mx-lg-5 px-lg-5">
+					{productRows}
+				</Col>
+			</Row>
+		</Container>
+		</>
 	)
 }

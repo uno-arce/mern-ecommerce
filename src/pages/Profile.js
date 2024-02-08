@@ -36,37 +36,32 @@ export default function Profile() {
 
 	return(
 		<>
-		<Container fluid className='bg-body-secondary'>
+		<Container fluid id='profile-header'>
 		      <Row className='align-items-end pb-3'>
 
 		        <Col xs={3}>
 		          <div className='d-flex align-items-end justify-content-end' style={{ height: '180px' }}>
-		            <div className='bg-secondary text-white rounded-circle p-3 d-flex align-items-center justify-content-center'  style={{ width: '100px', height: '100px' }}>
-		            	<i className='bi bi-person' style={{ fontSize: '4rem' }}> </i>
+		            <div id='profile-default' className='rounded-circle'>
 		            </div>
 		          </div>
 		        </Col>
 
 		        <Col xs={6}>
-		          <div className=' d-flex flex-column'>
-		            <h2 className='mb-4'>{firstName} {lastName}</h2>
-		            <div className='d-flex'>
-		            	<h6 className='me-2'>{role}</h6>
-		            	<h6 className='me-2'>•</h6>
-		            	<h6>Since {createdOn}</h6>
-		            </div>
+		          <h2 id='profile-name' className='mb-3'>{firstName} {lastName}</h2>
+		          <div className='d-flex'>
+		          	<h6 id='profile-description' className='me-2'>{role}</h6>
+		          	<h6 id='profile-description' className='me-2'>•</h6>
+		          	<h6 id='profile-description'>Since {createdOn}</h6>
 		          </div>
 		        </Col>
 
 		        <Col xs={3}>
 		          <InputGroup className='mb-4'>
-		            <InputGroup.Text>
-		              <i className='bi bi-pencil'></i>
+		            <InputGroup.Text id='view-input-group-icon' className='bi bi-pencil'>
 		            </InputGroup.Text>
 		            <DropdownButton
-		              variant="secondary"
+		              id='product-button'
 		              title="Edit"
-		              id="input-group-dropdown-1"
 		            >
 		              <Dropdown.Item as = {Link} to = '/profile/edit'>Edit Profile</Dropdown.Item>
 		              <Dropdown.Item as = {Link} to = '/profile/change-password'>Change Password</Dropdown.Item>

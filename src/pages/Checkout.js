@@ -2,6 +2,7 @@ import {Container, Row, Col, Button, InputGroup, Form} from 'react-bootstrap';
 import {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 import {Link} from 'react-router-dom';
+import AppFooter from '../components/AppFooter.js';
 
 import Swal from 'sweetalert2';
 
@@ -21,6 +22,7 @@ export default function Checkout() {
 	const [country, setCountry] = useState('');
 	const [zip, setZip] = useState('');
 	const [paymentMethod, setPaymentMethod] = useState('');
+	const [image, setImage] =useState(null);
 
 	const [isActive, setIsActive] = useState(true);
 
@@ -49,6 +51,14 @@ export default function Checkout() {
 			setStocks(data.stocks);
 			setInitialPrice(data.price);
 			setPrice(data.price * quantity);
+		})
+	}, []);
+
+	useEffect(() => {
+		fetch(`${process.env.REACT_APP_API_URL}/products/${productId}`)
+		.then(result => result.json())
+		.then(data => {
+			setImage(data.image);
 		})
 	}, []);
 
@@ -114,17 +124,17 @@ export default function Checkout() {
 
 	return(
 		<>
-			<Container>
+			<Container fluid id='checkout-container'>
 				<Row>
-					<Col className='col-7'>
-					<h5 className='mt-5'>Billing Address</h5>
-						<Container className='bg-body-tertiary'>
-							<Row>
-								<Col>
-									<Form className='m-4'>
-										<Row className='gy-4'>
-											<Col className='col-6'>
-												<Form.Group>
+					<Col>
+						<Container className='mt-5'>
+							<div className='d-lg-flex'>
+								<div className='d-flex flex-column'>
+									<h4 id='checkout-header'>Delivery Information</h4>
+									<Form id='form-text'>
+										<div id='form-container' className='d-flex flex-column p-5'>
+											<div className='d-flex'>
+												<Form.Group className='me-5'>
 													<Form.Label>Block & Lot</Form.Label>
 													<Form.Control 
 													type="text" 
@@ -136,8 +146,6 @@ export default function Checkout() {
 													}}
 													 />
 												</Form.Group>
-											</Col>
-											<Col className='col-6'>
 												<Form.Group>
 													<Form.Label>Street</Form.Label>
 													<Form.Control 
@@ -150,9 +158,9 @@ export default function Checkout() {
 													 }} 
 													 />
 												</Form.Group>
-											</Col>
-											<Col className='col-6'>
-												<Form.Group>
+											</div>
+											<div className='d-flex mt-4'>
+												<Form.Group className='me-5'>
 													<Form.Label>City</Form.Label>
 													<Form.Control 
 													type="text" 
@@ -164,8 +172,6 @@ export default function Checkout() {
 													}} 
 													/>
 												</Form.Group>
-											</Col>
-											<Col className='col-6'>
 												<Form.Group>
 													<Form.Label>Province</Form.Label>
 													<Form.Control 
@@ -178,9 +184,9 @@ export default function Checkout() {
 													}}
 													  />
 												</Form.Group>
-											</Col>
-											<Col className='col-6'>
-												<Form.Group>
+											</div> 
+											<div className='d-flex mt-4'>
+												<Form.Group className='me-5'>
 													<Form.Label>Country</Form.Label>
 													<Form.Control 
 													type="text"
@@ -192,8 +198,6 @@ export default function Checkout() {
 													}}
 													 />
 												</Form.Group>
-											</Col>
-											<Col className='col-6'>
 												<Form.Group>
 													<Form.Label>Zip</Form.Label>
 													<Form.Control 
@@ -206,99 +210,96 @@ export default function Checkout() {
 													}}
 													 />
 												</Form.Group>
-											</Col>
-										</Row>
+											</div> 
+										</div>
 									</Form>
-								</Col>
-							</Row>
-						</Container>
-
-						<h5 className='mt-4'>Payment Method</h5>
-						<Container className='bg-body-tertiary'>
-							<Row className='p-4'>
-								<Col>
-									<InputGroup>
-									  <InputGroup.Radio 
-									  aria-label="Credit Card" 
-									  name="paymentMethod"
-									  value='Credit Card'
-									  onChange={event => {
-									  	setPaymentMethod(event.target.value);
-									  }}
-									   />
-									  <InputGroup.Text>Credit Card</InputGroup.Text>
-									</InputGroup>
-								</Col>
-								<Col>
-									<InputGroup>
-									  <InputGroup.Radio 
-									  aria-label="PayPal" 
-									  name="paymentMethod" 
-									  value='Paypal'
-									  onChange={event => {
-									  	setPaymentMethod(event.target.value);
-									  }}
-									  />
-									  <InputGroup.Text>PayPal</InputGroup.Text>
-									</InputGroup>
-								</Col>
-								<Col>
-									<InputGroup>
-									  <InputGroup.Radio 
-									  aria-label="Cash on Delivery" 
-									  name="paymentMethod"
-									  value='Cash on Delivery'
-									  onChange={event => {
-									  	setPaymentMethod(event.target.value);
-									  }} 
-									  />
-									  <InputGroup.Text>Cash on Delivery</InputGroup.Text>
-									</InputGroup>
-								</Col>
-							</Row>
-						</Container>
-
-						<Container className='bg-body-tertiary mt-4'>
-							<Row className='p-5 d-flex justify-content-center'>
-								<Col className='p-3'>
-									<h2 className='text-center'>Thank you for ordering!</h2>
-								</Col>
-							</Row>
-						</Container>
-					</Col>
-					<Col className='mt-5 d-flex flex-column col-4'>
-						<h5>Order Summary</h5>
-						<Container className='bg-body-tertiary d-flex flex-grow-1 justify-content-center'>
-							<Row className='w-100'>
-								<Col className='px-2 py-4 d-flex flex-column'>
-									<Container>
-										<Row className='d-flex gx-2'>
-											<Col className='col-2'>
-												<div className='bg-body-secondary'>img</div>
-											</Col>
-											<Col>
-												<h6>{name}</h6>
-												<h6>₱{price}</h6>
-											</Col>
-											<Col className='align-self-center'>
+									<h4 id='checkout-header' className='mt-4'>Payment Method</h4>
+									<div id='form-container' className='d-md-flex py-3 px-2'>
+										<InputGroup>
+										  <InputGroup.Radio
+										  id='input-group-radio-box' 
+										  aria-label="Credit Card" 
+										  name="paymentMethod"
+										  value='Credit Card'
+										  onChange={event => {
+										  	setPaymentMethod(event.target.value);
+										  }}
+										   />
+										  <InputGroup.Text>Credit Card</InputGroup.Text>
+										</InputGroup>
+										<InputGroup>
+										  <InputGroup.Radio 
+										  id='input-group-radio-box'
+										  aria-label="PayPal" 
+										  name="paymentMethod" 
+										  value='Paypal'
+										  onChange={event => {
+										  	setPaymentMethod(event.target.value);
+										  }}
+										  />
+										  <InputGroup.Text>PayPal</InputGroup.Text>
+										</InputGroup>
+										<InputGroup>
+										  <InputGroup.Radio 
+										  id='input-group-radio-box'
+										  aria-label="Cash on Delivery" 
+										  name="paymentMethod"
+										  value='Cash on Delivery'
+										  onChange={event => {
+										  	setPaymentMethod(event.target.value);
+										  }} 
+										  />
+										  <InputGroup.Text>Cash on Delivery</InputGroup.Text>
+										</InputGroup>
+									</div>
+									<div id='sparkle-container' className='mt-4 d-flex flex-column justify-content-center align-items-center'>
+										<h3>Thank you for ordering</h3>
+									</div>
+								</div>
+								<div className='d-flex flex-column flex-grow-1 ms-4 mb-5'>
+									<h4 id='checkout-header'>Your Cart</h4>
+									<div id='form-container' className='d-flex flex-column flex-grow-1 px-5 pt-5 pb-3'>
+										<div className='d-flex align-items-center justify-content-between'>
+											<div className='d-flex'>
+												<div className='me-3' style={{ 
+				    	height: '50px',
+				    	width: '50px',
+				    	backgroundImage: `url(${process.env.REACT_APP_API_URL}${image})`,
+				    	backgroundSize: 'cover',
+				    	backgroundPosition: 'center',
+				    	borderRadius: '8px'
+				    	 }}></div>
+												<div className='d-flex flex-column'>
+													<h6 id='cart-items'>{name}</h6>
+													<h6 id='cart-items'>₱{price}</h6>
+											</div>
+											</div>
+											<div>
 												<InputGroup className='mx-4'>
-													<Button variant='secondary' className="bi bi-dash" onClick={handleSubtract}>
+													<Button id='cart-input-group-button'className="bi bi-dash" onClick={handleSubtract}>
 													</Button>
-													<InputGroup.Text>
+													<InputGroup.Text id='cart-items'>
 													{quantity}
 													</InputGroup.Text>
-													<Button variant='secondary' className="bi bi-plus" onClick={handleAdd}>
+													<Button id='cart-input-group-button' className="bi bi-plus" onClick={handleAdd}>
 													</Button>
 												</InputGroup>
-											</Col>
-										</Row>
-									</Container>
-									<Button onClick={handleConfirmOrder} disabled={isActive} variant='dark' className='w-100 mt-auto'>
-									  Confirm Order
-									</Button>
-								</Col>
-							</Row>
+											</div>
+										</div>
+										<Button id='cart-input-group-button' onClick={handleConfirmOrder} disabled={isActive} className='w-100 mt-auto'>
+										  Confirm Order
+										</Button>
+									</div>
+								</div>
+							</div>
 						</Container>
+					</Col>
+				</Row>
+			</Container>
+			<Container fluid id='footer'>
+				<Row>
+					<Col>
+						<AppFooter/>
 					</Col>
 				</Row>
 			</Container>

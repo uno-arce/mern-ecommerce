@@ -39,7 +39,7 @@ export default function FeaturedProducts() {
 	return(
 		<>
 			<Container className='mt-4'>
-				<Row lg={2} className='g-5'>
+				<Row xs={1} md={1} lg={2} className='g-5'>
 				{previews}
 				</Row>
 			</Container>

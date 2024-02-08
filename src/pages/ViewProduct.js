@@ -18,6 +18,7 @@ export default function ViewProduct() {
 	const [sold, setSold] = useState(0);
 	const [quantity, setQuantity] = useState(1);
 	const [stars, setStars] = useState([]);
+	const [image, setImage] = useState(null);
 
 	useEffect(() => {
 		fetch(`${process.env.REACT_APP_API_URL}/products/${productId}`)
@@ -29,6 +30,7 @@ export default function ViewProduct() {
 			setPrice(data.price);
 			setInitialPrice(data.price);
 			setSold(data.sold);
+			setImage(data.image);
 
 			const totalRating = data.reviews.reduce((sum, review) => sum + data.review.rating, 0);
 			const averageRating = totalRating / data.reviews.length;
@@ -84,47 +86,56 @@ export default function ViewProduct() {
 
 	return(
 		<>
-			<Container fluid className='bg-body-secondary'>
+			<Container id='view-product-container' fluid>
 				<Row className='justify-content-center'>
 					<Col className='col-4 my-5'>
-						<Row className='bg-body-tertiary' style={{ height: '400px' }}>
+						<Row className='bg-body-tertiary' style={{ 
+				    	height: '400px',
+				    	backgroundImage: `url(${process.env.REACT_APP_API_URL}${image})`,
+				    	backgroundSize: 'cover',
+				    	backgroundPosition: 'center',
+				    	 }}>
 						</Row>
 					</Col>
 					<Col className='col-4 my-5 mx-5 d-flex flex-column'>
-						<h2>{name}</h2>
-						<div className='d-inline-flex'>
-							<h6>{stars} Rating</h6>
-							<h6 className='mx-3'>{sold} Sold</h6>
+						<h2 id='view-text-bold'>{name}</h2>
+						<div className='d-flex align-items-center'>
+							<h6 id='view-text'>{stars} Rating</h6>
+							<h6 id='view-text' className='mx-3'>{sold} Sold</h6>
 						</div>
-						<h4 className='mt-5'>₱{price}</h4>
-						<h6 className='mt-5'>{description}</h6>
-						<InputGroup className='mt-5'>
-							<InputGroup.Text className="bi bi-cart">
-							</InputGroup.Text>
-							<Button variant='secondary' className="bi bi-dash" onClick={handleSubtract}>
-							</Button>
-							<InputGroup.Text>
-							{quantity}
-							</InputGroup.Text>
-							<Button variant='secondary' className="bi bi-plus" onClick={handleAdd}>
-							</Button>
-							<InputGroup.Text>
-							{stocks} stocks available
-							</InputGroup.Text>
-						</InputGroup>
+						<h4 id='view-text-bold' className='mt-5'>₱{price}</h4>
+						<h6 id='view-text-bold' className='mt-5'>{description}</h6>
+						<div className='d-flex'>
+							<div>
+								<InputGroup id='view-input-group' className='mt-5'>
+									<InputGroup.Text id='view-input-group-icon' className="bi bi-cart">
+									</InputGroup.Text>
+									<Button id='view-input-group-button' className="bi bi-dash" onClick={handleSubtract}>
+									</Button>
+									<InputGroup.Text id='view-input-group-icon'>
+									{quantity}
+									</InputGroup.Text>
+									<Button id='view-input-group-button' className="bi bi-plus" onClick={handleAdd}>
+									</Button>
+									<InputGroup.Text id='view-input-group-icon'>
+									{stocks} stocks available
+									</InputGroup.Text>
+								</InputGroup>
+							</div>
+						</div>
 						<div className='mt-auto'>
 						  <div className='d-inline-flex'>
 						    <InputGroup>
-						      <InputGroup.Text className="bi bi-cart-check"></InputGroup.Text>
-						      <Button onClick = {onSubmit} variant='dark'>
+						      <InputGroup.Text id='view-input-group-icon' className="bi bi-cart-check"></InputGroup.Text>
+						      <Button id='view-input-group-button' onClick = {onSubmit} variant='dark'>
 						        Add to Cart
 						      </Button>
 						    </InputGroup>
 						  </div>
 						  <div className='d-inline-flex mx-4'>
 						    <InputGroup>
-						      <InputGroup.Text className="bi bi-bag"></InputGroup.Text>
-						      <Button as = {Link} 
+						      <InputGroup.Text id='view-input-group-icon' className="bi bi-bag"></InputGroup.Text>
+						      <Button id='view-input-group-button' as = {Link} 
 						      to = {user.role === 'Admin' ? `/view/${productId}` : `/${productId}/${quantity}/checkout`} 
 						      variant='dark'>
 						        Checkout

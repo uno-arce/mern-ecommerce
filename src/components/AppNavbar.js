@@ -10,7 +10,7 @@ export default function AppNavbar() {
 
 	return(
 	<Navbar expand="lg" sticky='top' className='m-0 p-0'>
-      <Container fluid>
+      <Container>
         <Navbar.Brand as = {NavLink} to = "/" className="mx-lg-4"></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-start">

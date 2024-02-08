@@ -1,7 +1,8 @@
 import {Container, Row, Col, Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import HomeReviews from './HomeReviews.js';
-import FeaturedProducts from './FeaturedProducts';
+import FeaturedProducts from './FeaturedProducts.js';
+import AppFooter from './AppFooter.js';
 
 export default function Hero() {
 	return(
@@ -29,7 +30,7 @@ export default function Hero() {
 		</Container>
 		<Container fluid id='home'>
 			<Row>
-				<Col className='m-0 p-0'>
+				<Col className='m-0 p-0 mb-5'>
 					<div id='home-feedback' className='d-flex align-items-center'>
 						<HomeReviews/>
 					</div>
@@ -39,6 +40,13 @@ export default function Hero() {
 						<h6 id='featured-subtitle' className='mt-2 mb-5 pb-5'>Products that are highly loved</h6>
 					</div>
 					<FeaturedProducts/>
+				</Col>
+			</Row>
+		</Container>
+		<Container fluid id='footer'>
+			<Row>
+				<Col>
+					<AppFooter/>
 				</Col>
 			</Row>
 		</Container>

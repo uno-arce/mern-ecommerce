@@ -21,19 +21,18 @@ export default function ShopView() {
 		const productsArr = products.map(product => {
 			return(
 				<Col key={product._id} className='mt-5 col-md-3'>
-				  <div className='product-card'>
+				  <div className='d-flex flex-column'>
 				    <div className='bg-body-tertiary mb-3' style={{ 
 				    	height: '300px',
-				    	width: '300px',
 				    	backgroundImage: `url(${process.env.REACT_APP_API_URL}${product.image})`,
 				    	backgroundSize: 'cover',
 				    	backgroundPosition: 'center',
 				    	 }}>
 				    </div>
-				    <h6>{product.productName}</h6>
-				    <p>₱{product.price}</p>
+				    <h6 id='header-text-dark'>{product.productName}</h6>
+				    <p id='header-text-dark'>₱{product.price}</p>
 				    <div className='d-flex justify-content-end'>
-				        <Button as = {Link} to = {`/view/${product._id}`} variant='secondary'><i class="bi bi-bag"></i></Button>
+				        <Button id='product-button' as = {Link} to = {`/view/${product._id}`}><i class="bi bi-bag"></i></Button>
 				    </div>
 				  </div>
 				</Col>
@@ -44,25 +43,37 @@ export default function ShopView() {
 
 	return(
 		<>
-			<Container fluid className='bg-body-secondary'>
+			<Container fluid id='shop-header'>
 			        <Row>
-			          <Col className='my-5 py-5' lg={{ span: 6, offset: 2 }} md={{ span: 8, offset: 2 }} sm={{ span: 10, offset: 1 }}>
-			            <h1>Digibee</h1>
-			            <h1 className='mb-5 mx-5 px-4'>Originals</h1>
-			            <h6>Shot memories using the Digibees Originals Cameras</h6>
-			          </Col>
-			          <Col className='my-5 py-2 mt-auto'>
-			          	<h6 className='mx-5 px-2'>Starts at</h6>
-			          	<h4 className='mx-5 px-5'>₱989</h4>
+			          <Col>
+			            <Container>
+			            	<div className='d-flex justify-content-between p-5'>
+			            		<div className='d-flex flex-column'>
+			            			<h1><span id='header-title1'>Digi</span><span id='header-title2'>bee</span></h1>
+			            			<h2 id='header-title3' className='mb-5 mx-5 px-4'>Originals</h2>
+			            			<h6 id='header-text'>Shot memories using the Digibees Originals Cameras</h6>
+			            		</div>
+			            		<div className='d-flex flex-column justify-content-end'>
+			            			<h6 className='mx-lg-5' id='header-text'>Starts at</h6>
+			            			<h4 id='header-text'>₱989</h4>
+			            		</div>
+			            	</div>
+			            </Container>
 			          </Col>
 			        </Row>
 			</Container>
-			<Container fluid className='mb-5'>
-				<Container>
-					<Row className='gx-5 row-cols-md-4'>
-						{productRows}
-					</Row>
-				</Container>
+			<Container id='shop-products' fluid className='pb-5'>
+				<Row>
+					<Col>
+						<Container id='shop-products'>
+							<h6 id='header-text-dark' class='mt-4'>Products</h6>
+							<hr/>
+							<Row xs={1} sm={2} md={2} lg={3}>
+								{productRows}
+							</Row>
+						</Container>
+					</Col>
+				</Row>
 			</Container>
 		</>
 	);

@@ -145,7 +145,7 @@ h4 {
 	height: 42px;
 }
 
-#marquee-name, #marquee-subtitle {
+#marquee-name, #marquee-subtitle, #footer-name {
 	color: #FAF7CA;
 }
 
@@ -173,4 +173,166 @@ h4 {
 #featured-subtitle {
 	font-weight: bold;
 	color: #588548;
+}
+
+#footer {
+	background-color: #474630;
+}
+
+#footer-profile {
+	background-color: #588548;
+	background-image: url('./images/bumblebee.png');
+	background-size: 25px 25px;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 50px;
+	height: 50px;
+}
+
+#footer-socials {
+	background-color: #FAF7CA;
+	width: 30px;
+	height: 30px;
+	margin: 0 5px;
+	display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-decoration: none; 
+  color: #588548;
+  cursor: pointer
+}
+
+#shop-header {
+	background-color: #FAF7CA;
+	background-image: url('./images/shop-header.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#header-text {
+	color: #2A571B;
+	font-weight: bold;
+}
+
+#header-text-dark {
+	color: #474630;
+	font-weight: bold;
+}
+
+#header-title1 {
+	font-family: 'Young Serif', serif;
+	color: #2A571B;
+}
+
+#header-title2 {
+	font-family: 'Sofia', cursive;
+	color: #588548;
+}
+
+#header-title3 {
+	font-family: 'Sofia', cursive;
+	color: #2A571B;
+}
+
+#shop-products {
+	background-color: #FFFEE9;
+}
+
+#product-button {
+	background-color: #474630;
+	border: none;
+}
+
+#view-product-container {
+	background-color: #FAF7CA;
+}
+
+#view-text {
+	color: #2A571B;
+}
+
+#view-text-bold {
+	color: #2A571B;
+	font-weight: bold;
+}
+
+#view-input-group {
+	border: 1px solid #474630;
+	border-radius: 6px;
+}
+
+#view-input-group-icon {
+	background-color: #FFFEE9;
+	color: #474630;
+	font-weight: bold;
+}
+
+#view-input-group-button, #cart-input-group-button {
+	background-color: #474630;
+	border: none;
+}
+
+#checkout-container {
+	background-color: #FAF7CA;
+}
+
+#checkout-header {
+	color: #2A571B;
+}
+
+#form-container {
+	background-color: #FFFEE9;
+	border-radius: 16px;
+}
+
+#form-text, #cart-items {
+	color: #474630;
+	font-weight: bold;
+}
+
+#sparkle-container {
+	background-image: url('./images/sparkle.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	height: 200px;
+	border-radius: 16px;
+
+	font-family: 'Young Serif', serif;
+	color: #2A571B;
+}
+
+#input-group-radio-box:checked {
+	background-color: #2A571B;
+	border: none;
+}
+
+#profile-header {
+	background-color: #FAF7CA;
+}
+
+#profile-default {
+	background-color: #2A571B;
+	background-image: url('./images/bumblebee.png');
+	background-size: 50px 50px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 100px;
+	height: 100px;
+}
+
+#profile-name {
+	color: #2A571B;
+	font-weight: bold;
+}
+
+#profile-description {
+	color: #588548;
+	font-weight: bold;
+}
+
+#profile-view-container {
+	background-color: #FFFEE9;
+	color: #474630;
 }

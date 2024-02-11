@@ -75,7 +75,8 @@ export default function ViewProduct() {
 				Authorization: `Bearer ${localStorage.getItem('token')}`
 			},
 			body: JSON.stringify({
-				quantity: quantity
+				quantity: quantity,
+				image: image
 			})
 		})
 		Swal.fire({
@@ -86,64 +87,69 @@ export default function ViewProduct() {
 
 	return(
 		<>
-			<Container id='view-product-container' fluid>
-				<Row className='justify-content-center'>
-					<Col className='col-4 my-5'>
-						<Row className='bg-body-tertiary' style={{ 
-				    	height: '400px',
-				    	backgroundImage: `url(${process.env.REACT_APP_API_URL}${image})`,
-				    	backgroundSize: 'cover',
-				    	backgroundPosition: 'center',
-				    	 }}>
-						</Row>
-					</Col>
-					<Col className='col-4 my-5 mx-5 d-flex flex-column'>
-						<h2 id='view-text-bold'>{name}</h2>
-						<div className='d-flex align-items-center'>
-							<h6 id='view-text'>{stars} Rating</h6>
-							<h6 id='view-text' className='mx-3'>{sold} Sold</h6>
-						</div>
-						<h4 id='view-text-bold' className='mt-5'>₱{price}</h4>
-						<h6 id='view-text-bold' className='mt-5'>{description}</h6>
-						<div className='d-flex'>
-							<div>
-								<InputGroup id='view-input-group' className='mt-5'>
-									<InputGroup.Text id='view-input-group-icon' className="bi bi-cart">
-									</InputGroup.Text>
-									<Button id='view-input-group-button' className="bi bi-dash" onClick={handleSubtract}>
-									</Button>
-									<InputGroup.Text id='view-input-group-icon'>
-									{quantity}
-									</InputGroup.Text>
-									<Button id='view-input-group-button' className="bi bi-plus" onClick={handleAdd}>
-									</Button>
-									<InputGroup.Text id='view-input-group-icon'>
-									{stocks} stocks available
-									</InputGroup.Text>
-								</InputGroup>
+			<Container fluid id='view-product-container'>
+				<Row>
+					<Col>
+						<Container>
+							<div className='d-xl-flex justify-content-between py-5'>
+								<div className='bg-body-tertiary d-flex' style={{ 
+								height: '400px',
+				    			width: '100%',
+				    			maxWidth: '650px',
+				    			backgroundImage: `url(${process.env.REACT_APP_API_URL}${image})`,
+				    			backgroundSize: 'cover',
+				    			backgroundPosition: 'center',
+				    	 		}}>
+								</div>
+								<div className='d-flex flex-column mt-xl-0 mt-4'>
+									<h2 id='view-text-bold'>{name}</h2>
+									<div className='d-flex align-items-center'>
+										<h6 id='view-text'>{stars} Rating</h6>
+										<h6 id='view-text' className='mx-3'>{sold} Sold</h6>
+									</div>
+									<h4 id='view-text-bold' className='mt-5'>₱{price}</h4>
+									<h6 id='view-text-bold' className='mt-5'>{description}</h6>
+									<div className='d-flex'>
+										<div>
+											<InputGroup id='view-input-group' className='mt-5'>
+												<InputGroup.Text id='view-input-group-icon' className="bi bi-cart">
+												</InputGroup.Text>
+												<Button id='view-input-group-button' className="bi bi-dash" onClick={handleSubtract}>
+												</Button>
+												<InputGroup.Text id='view-input-group-icon'>
+												{quantity}
+												</InputGroup.Text>
+												<Button id='view-input-group-button' className="bi bi-plus" onClick={handleAdd}>
+												</Button>
+												<InputGroup.Text id='view-input-group-icon'>
+												{stocks} stocks available
+												</InputGroup.Text>
+											</InputGroup>
+										</div>
+									</div>
+									<div className='mt-auto'>
+									  <div className='d-inline-flex'>
+									    <InputGroup>
+									      <InputGroup.Text id='view-input-group-icon' className="bi bi-cart-check"></InputGroup.Text>
+									      <Button id='view-input-group-button' onClick = {(user.role === 'User') ? onSubmit : null} variant='dark'>
+									        Add to Cart
+									      </Button>
+									    </InputGroup>
+									  </div>
+									  <div className='d-inline-flex mx-4 mt-xl-0 mt-4'>
+									    <InputGroup>
+									      <InputGroup.Text id='view-input-group-icon' className="bi bi-bag"></InputGroup.Text>
+									      <Button id='view-input-group-button' as = {Link} 
+									      to = {user.role === 'Admin' ? `/view/${productId}` : `/${productId}/${quantity}/checkout`} 
+									      variant='dark'>
+									        Checkout
+									      </Button>
+									    </InputGroup>
+									  </div>
+									</div>
+								</div>
 							</div>
-						</div>
-						<div className='mt-auto'>
-						  <div className='d-inline-flex'>
-						    <InputGroup>
-						      <InputGroup.Text id='view-input-group-icon' className="bi bi-cart-check"></InputGroup.Text>
-						      <Button id='view-input-group-button' onClick = {onSubmit} variant='dark'>
-						        Add to Cart
-						      </Button>
-						    </InputGroup>
-						  </div>
-						  <div className='d-inline-flex mx-4'>
-						    <InputGroup>
-						      <InputGroup.Text id='view-input-group-icon' className="bi bi-bag"></InputGroup.Text>
-						      <Button id='view-input-group-button' as = {Link} 
-						      to = {user.role === 'Admin' ? `/view/${productId}` : `/${productId}/${quantity}/checkout`} 
-						      variant='dark'>
-						        Checkout
-						      </Button>
-						    </InputGroup>
-						  </div>
-						</div>
-
+						</Container>
 					</Col>
 				</Row>
 			</Container>

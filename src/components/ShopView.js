@@ -15,8 +15,6 @@ export default function ShopView() {
 		})
 	}, [])
 
-	console.log(products);
-
 	useEffect(() => {
 		const productsArr = products.map(product => {
 			return(
@@ -32,7 +30,7 @@ export default function ShopView() {
 				    <h6 id='header-text-dark'>{product.productName}</h6>
 				    <p id='header-text-dark'>₱{product.price}</p>
 				    <div className='d-flex justify-content-end'>
-				        <Button id='product-button' as = {Link} to = {`/view/${product._id}`}><i class="bi bi-bag"></i></Button>
+				        <Button id='product-button' as = {Link} to = {`/view/${product._id}`}><i className="bi bi-bag"></i></Button>
 				    </div>
 				  </div>
 				</Col>
@@ -62,11 +60,11 @@ export default function ShopView() {
 			          </Col>
 			        </Row>
 			</Container>
-			<Container id='shop-products' fluid className='pb-5'>
+			<Container fluid id='shop-products' className='pb-5'>
 				<Row>
 					<Col>
 						<Container id='shop-products'>
-							<h6 id='header-text-dark' class='mt-4'>Products</h6>
+							<h6 id='header-text-dark' className='mt-4'>Products</h6>
 							<hr/>
 							<Row xs={1} sm={2} md={2} lg={3}>
 								{productRows}

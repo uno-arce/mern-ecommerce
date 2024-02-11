@@ -1,5 +1,5 @@
 import ArchiveProduct from './ArchiveProduct.js';
-import {Container, Row, Col, Button, Table, OverlayTrigger, ButtonGroup, InputGroup, Accordion} from 'react-bootstrap';
+import {Container, Row, Col, Button, Table, ButtonGroup, InputGroup, Accordion} from 'react-bootstrap';
 
 import { useState, useEffect, useContext } from 'react';
 import {Link} from 'react-router-dom';
@@ -29,49 +29,6 @@ export default function AdminView() {
 		}
 	}, [user.role])
 
-	// useEffect(() => {
-	//   const productsArr = products.map((product, index) => {
-	//     const popoverContent = (
-	//     	<ButtonGroup vertical>
-	//     	      <InputGroup>
-	//     	      	<InputGroup.Text className="bi bi-pencil">
-	//     	      	</InputGroup.Text>
-	//     	      	<Button as = {Link} to = {`/editProduct/${product._id}`} variant='secondary'>Edit</Button>
-	//     	      </InputGroup>
-	//     	      <InputGroup>
-	//     	      	<InputGroup.Text className="bi bi-archive">
-	//     	      	</InputGroup.Text>
-	//     	      	<ArchiveProduct productId = {product._id} isActive = {product.isActive} fetchData = {fetchData}/>
-	//     	      </InputGroup>
-	//     	</ButtonGroup>
-	//     );
-
-	//     return (
-	//       <OverlayTrigger
-	//         key={product._id}
-	//         trigger="click"
-	//         placement="top"
-	//         overlay={popoverContent}
-	//         rootClose={true}
-	//       >
-	//         <tr>
-	//           <td>{index + 1}</td>
-	//           <td>{product.productName}</td>
-	//           <td>{product.productDescription}</td>
-	//           <td>{product.price}</td>
-	//           <td>{product.stocks}</td>
-	//           <td>{product.sold}</td>
-	//           <td className={product.isActive ? 'text-success' : 'text-danger'}>
-	//             {product.isActive ? 'available' : 'unavailable'}
-	//           </td>
-	//         </tr>
-	//       </OverlayTrigger>
-	//     );
-	//   });
-
-	//   setProductRows(productsArr);
-	// }, [products]);
-
 	useEffect(() => {
 	  const productsArr = products.map((product, index) => {
 	    return (
@@ -80,7 +37,7 @@ export default function AdminView() {
 	          		<Accordion.Header>
 	          			<div className='me-4'>{index + 1}</div>
 	          			<div className='d-flex flex-column'>
-	          				<div className='mb-2'>{product.productName}</div>
+	          				<div id='dashboard-product' className='mb-2'>{product.productName}</div>
 	          				<div className='d-flex'>
 	          					<i className={`bi bi-circle-fill me-2 ${product.isActive ? 'text-success' : 'text-danger'}`}></i>  
 		          				<div className={product.isActive ? 'text-success' : 'text-danger'}>
@@ -89,51 +46,51 @@ export default function AdminView() {
 	          				</div>
 	          			</div>
 	          		</Accordion.Header>
-	          		<Accordion.Body>
+	          		<Accordion.Body id='dashboard-product-body'>
 	          			<div className='mb-3'>{product.productDescription}</div> 
-	          			<h6>Stats</h6>
+	          			<h6 id='dashboard-product-body'>Stats</h6>
 	          			<div className='d-flex mb-3'>
 	          				<div className='me-1'>
 	          					<InputGroup>
-	          						<InputGroup.Text>
+	          						<InputGroup.Text id='view-input-group-icon'>
 	          						₱
 	          						</InputGroup.Text>
-	          						<InputGroup.Text>
+	          						<InputGroup.Text id='view-input-group-icon'>
 	          							{product.price}
 	          						</InputGroup.Text>
 	          					</InputGroup>
 	          				</div>
 	          				<div className='me-1'>
 	          					<InputGroup>
-	          						<InputGroup.Text className="bi bi-bag-check">
+	          						<InputGroup.Text id='view-input-group-icon' className="bi bi-bag-check">
 	          						</InputGroup.Text>
-	          						<InputGroup.Text>
+	          						<InputGroup.Text id='view-input-group-icon'>
 	          							{product.sold} sold
 	          						</InputGroup.Text>
 	          					</InputGroup>
 	          				</div>
 	          				<div>
 	          					<InputGroup>
-	          						<InputGroup.Text className="bi bi-cart">
+	          						<InputGroup.Text id='view-input-group-icon' className="bi bi-cart">
 	          						</InputGroup.Text>
-	          						<InputGroup.Text>
+	          						<InputGroup.Text id='view-input-group-icon'>
 	          							{product.stocks} left
 	          						</InputGroup.Text>
 	          					</InputGroup>
 	          				</div>
 	          			</div>
-	          			<h6>Actions</h6>
+	          			<h6 id='dashboard-product-body'>Actions</h6>
 	          			<div className='d-flex'>
 	          				<div className='me-1'>
 	          					<InputGroup>
-	          						<InputGroup.Text className="bi bi-pencil">
+	          						<InputGroup.Text id='view-input-group-icon' className="bi bi-pencil">
 	          						</InputGroup.Text>
-	          						<Button as = {Link} to = {`/editProduct/${product._id}`} variant='secondary'>Edit</Button>
+	          						<Button id='dashboard-button' as = {Link} to = {`/editProduct/${product._id}`} variant='secondary'>Edit</Button>
 	          					</InputGroup>
 	          				</div>
 	          				<div>
 	          					<InputGroup>
-	          						<InputGroup.Text className="bi bi-archive">
+	          						<InputGroup.Text id='view-input-group-icon' className="bi bi-archive">
 	          						</InputGroup.Text>
 	          						<ArchiveProduct productId = {product._id} isActive = {product.isActive} fetchData = {fetchData}/>
 	          					</InputGroup>
@@ -150,29 +107,33 @@ export default function AdminView() {
 
 	return(
 		<>
-		<Container fluid className='bg-body-secondary py-4'>
+		<Container fluid id='dashboard-header' className='py-4'>
 			<Row>
 				<Col>
-					<div>
-						<h2 className='mt-lg-5 mx-lg-5 px-lg-5'>Welcome back,</h2>
-					</div>
-					<div className='d-flex justify-content-between align-items-center mt-lg-5 '>
-						<h4 className='mx-lg-5 px-lg-5 mt-4'>Products</h4>
-						<div>
-							<InputGroup className='me-lg-5 pe-lg-5 mt-4'>
-								<InputGroup.Text className="bi bi-patch-plus">
-								</InputGroup.Text>
-								<Button as = {Link} to = '/addProduct' variant='secondary'>Create</Button>
-							</InputGroup>
+					<Container>
+						<div className='pt-4'>
+							<h2 id='dashboard-title'>Welcome back,</h2>
+							<div className='d-flex justify-content-between align-items-center mt-5'>
+								<h4>Products</h4>
+								<div>
+									<InputGroup>
+										<InputGroup.Text id='view-input-group-icon' className="bi bi-patch-plus">
+										</InputGroup.Text>
+										<Button id='dashboard-button' as = {Link} to = '/addProduct'>Create</Button>
+									</InputGroup>
+								</div>
+							</div>
 						</div>
-					</div>
+					</Container>
 				</Col>
 			</Row>
 		</Container>
-		<Container fluid>
+		<Container fluid id='dashboard-container'>
 			<Row>
-				<Col className="mx-lg-5 px-lg-5">
-					{productRows}
+				<Col>
+					<Container className='pb-5'>
+						{productRows}
+					</Container>
 				</Col>
 			</Row>
 		</Container>

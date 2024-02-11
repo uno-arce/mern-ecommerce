@@ -12,8 +12,10 @@ import Shop from './pages/Shop.js';
 import ViewProduct from './pages/ViewProduct.js';
 import Checkout from './pages/Checkout.js';
 import Profile from './pages/Profile.js';
-import EditProfile from './pages/EditProfile';
-import ChangePassword from './pages/ChangePassword';
+import EditProfile from './pages/EditProfile.js';
+import ChangePassword from './pages/ChangePassword.js';
+import Cart from './pages/Cart.js';
+import CartCheckout from './pages/CartCheckout.js';
 
 // Routing
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
@@ -87,6 +89,8 @@ function App() {
           <Route path='/profile' element={<Profile/>}/>
           <Route path='/profile/edit' element={<EditProfile/>}/>
           <Route path='/profile/change-password' element={<ChangePassword/>}/>
+          <Route path='/cart' element={<Cart/>}/>
+          <Route path='/cart/checkout' element={<CartCheckout/>}/>
         </Routes>
       </Router>
     </UserProvider>

@@ -1,4 +1,4 @@
-import {Container, Row, Col, Button, Form, InputGroup} from 'react-bootstrap';
+import {Container, Row, Col, Button, Form, InputGroup, Dropdown, DropdownButton} from 'react-bootstrap';
 import {useState, useEffect, useContext} from 'react';
 import {Link} from 'react-router-dom';
 
@@ -48,38 +48,59 @@ export default function ChangePassword() {
 
 	return(
 		<>
-			<Container fluid>
-				<Row className='d-flex justify-content-center'>
-					<Col className='mt-5 col-3'>
-						<h1>Change Password</h1>
-						<Form.Group className='mt-5'>
-							<Form.Label>New Password</Form.Label>
-							<Form.Control 
-							type="password"
-							placeholder='Enter new password'
-							value = {newPassword} 
-							required 
-							onChange = {event => {
-								setNewPassword(event.target.value);
-							}} 
-							 />
-						</Form.Group>
-						<Form.Group className='mt-4'>
-							<Form.Label>Confirm New Password</Form.Label>
-							<Form.Control 
-							type="password" 
-							placeholder='Enter new password'
-							value = {confirmNewPassword} 
-							required 
-							onChange = {event => {
-								setConfirmNewPassword(event.target.value);
-							}} 
-							 />
-						</Form.Group>
-						<div className='d-flex justify-content-start mt-5' style={{ maxWidth: '450px' }}>
-							<Button as = {Link} to = '/profile' variant="secondary" className='flex-fill me-2'>Cancel</Button>
-							<Button onClick={handleUpdate} disabled={isDisabled} className='flex-fill'>Update</Button>
-						</div>
+			<Container fluid id='change-profile-header'>
+				<Row>
+					<Col className='py-5'>
+						<Container className='d-flex justify-content-between'>
+							<h2 id='profile-name'>Change Password</h2>
+							<div>
+								<InputGroup className='mb-4'>
+								  <InputGroup.Text id='view-input-group-icon' className='bi bi-pencil'>
+								  </InputGroup.Text>
+								  <DropdownButton
+								    id='product-button'
+								  >
+								    <Dropdown.Item as = {Link} to = '/profile'>View Profile</Dropdown.Item>
+								    <Dropdown.Item as = {Link} to = '/profile/change-password'>Change Password</Dropdown.Item>
+								  </DropdownButton>
+								</InputGroup>
+							</div>
+						</Container>
+						<Container>
+							<div className='d-flex flex-column' style={{ maxWidth: '450px' }}>
+								<div>
+									<Form.Group className='mt-3'>
+										<Form.Label>New Password</Form.Label>
+										<Form.Control 
+										type="password"
+										placeholder='Enter new password'
+										value = {newPassword} 
+										required 
+										onChange = {event => {
+											setNewPassword(event.target.value);
+										}} 
+										 />
+									</Form.Group>
+								</div>
+								<div>
+									<Form.Group className='mt-4'>
+										<Form.Label>Confirm New Password</Form.Label>
+										<Form.Control 
+										type="password" 
+										placeholder='Enter new password'
+										value = {confirmNewPassword} 
+										required 
+										onChange = {event => {
+											setConfirmNewPassword(event.target.value);
+										}} 
+										 />
+									</Form.Group>
+								</div>
+							</div>
+							<div className='d-flex justify-content-start mt-5' style={{ maxWidth: '450px' }}>
+								<Button id='profile-button' onClick={handleUpdate} disabled={isDisabled} className='flex-fill'>Update</Button>
+							</div>
+						</Container>
 					</Col>
 				</Row>
 			</Container>

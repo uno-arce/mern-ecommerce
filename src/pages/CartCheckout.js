@@ -1,20 +1,14 @@
 import {Container, Row, Col, Button, InputGroup, Form} from 'react-bootstrap';
 import {useState, useEffect} from 'react'
-import { useParams } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import AppFooter from '../components/AppFooter.js';
+import ProductItems from '../components/ProductItems.js';
 
 import Swal from 'sweetalert2';
 
-export default function Checkout() {
-	const {productId, qty} = useParams();
-
-	const [name, setName] = useState('');
-	const [description, setDescription] = useState('');
-	const [stocks, setStocks] = useState(0);
-	const [initialPrice, setInitialPrice] = useState(0);
-	const [price, setPrice] = useState(0);
-	const [quantity, setQuantity] = useState(Number(qty));
+export default function CartCheckout() {
+	const [products, setProducts] = useState([]);
+	const [totalAmount, setTotalAmount] = useState(0);
 	const [blkLot, setBlkLot] = useState('');
 	const [city, setCity] = useState('');
 	const [street, setStreet] = useState('');
@@ -22,9 +16,29 @@ export default function Checkout() {
 	const [country, setCountry] = useState('');
 	const [zip, setZip] = useState('');
 	const [paymentMethod, setPaymentMethod] = useState('');
-	const [image, setImage] =useState(null);
 
 	const [isActive, setIsActive] = useState(true);
+
+	useEffect(() => {
+		if(blkLot !== "" && city !== "" && street !== "" && province !== "" && country !== "" && zip !== "" && paymentMethod !== "") {
+			setIsActive(false);
+		} else {
+			setIsActive(true);
+		}
+	}, [blkLot, city, street, province, country, zip,paymentMethod]);
+
+	const fetchData = () => {
+	  fetch(`${process.env.REACT_APP_API_URL}/users/my-cart`, {
+	    headers: {
+	      Authorization: `Bearer ${localStorage.getItem('token')}`,
+	    },
+	  })
+	    .then((res) => res.json())
+	    .then((data) => {
+	      setProducts(data.products);
+	      setTotalAmount(data.totalAmount);
+	    });
+	};
 
 	useEffect(() => {
 		fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
@@ -43,84 +57,104 @@ export default function Checkout() {
 			setZip(data.address.zipCode ?? '');
 		})
 
-		fetch(`${process.env.REACT_APP_API_URL}/products/${productId}`)
-		.then(result => result.json())
-		.then(data => {
-			setName(data.productName);
-			setDescription(data.productDescription);
-			setStocks(data.stocks);
-			setInitialPrice(data.price);
-			setPrice(data.price * quantity);
-		})
+		fetchData();
 	}, []);
 
-	useEffect(() => {
-		fetch(`${process.env.REACT_APP_API_URL}/products/${productId}`)
-		.then(result => result.json())
-		.then(data => {
-			setImage(data.image);
-		})
-	}, []);
+	const updateTotalAmount = (productId, productPrice, newQuantity) => {
+	    const updatedProducts = products.map((product) => {
+	      if (product._id === productId) {
+	        return {
+	          ...product,
+	          quantity: newQuantity,
+	          subTotal: productPrice * newQuantity
+	        };
+	      }
+	      return product;
+	    });
 
-	const handleAdd = () => {
-	    if (quantity < stocks) {
-	      setQuantity(quantity + 1);
+	    setProducts(updatedProducts);
+
+	    const newTotalAmount = updatedProducts.reduce((acc, product) => acc + product.subTotal, 0);
+
+	    setTotalAmount(newTotalAmount);
+
+	  };
+
+	const removeFromCart = async (productId) => {
+	    try {
+	      fetch(`${process.env.REACT_APP_API_URL}/users/my-cart/remove/${productId}`, {
+	        method: 'PUT',
+	        headers: {
+	          Authorization: `Bearer ${localStorage.getItem('token')}`,
+	        },
+	      })
+	      .then(result => result.json())
+	      .then(data => {
+	        if (data) {
+	          Swal.fire({
+	            title: "Deleted Successfully",
+	            icon: "success",
+	          })
+	          fetchData();
+	        } else {
+	          Swal.fire({
+	            title: "Delete Failed",
+	            icon: "error",
+	          })
+	        }
+	      })
+	    } catch (error) {
+	      Swal.fire({
+	        title: "Delete Failed",
+	        icon: "error",
+	      })
 	    }
-	};
+	  };
 
-	const handleSubtract = () => {
-	    if (quantity > 1) {
-	      setQuantity(quantity - 1);
-	    }
-	};
+	const handleCartCheckout = async () => {
+	  try {
+	    // Prepare the request body
+	    const requestBody = {
+	    blkLot: blkLot,
+	    city: city,
+	    street: street,
+	    province: province,
+	    country: country,
+	    zipCode: zip,
+	    paymentMethod: paymentMethod,
+	    products: products,
+	    };
 
-	useEffect(() => {
-		setPrice(initialPrice * quantity);
-	}, [quantity])
-
-	useEffect(() => {
-		if(blkLot !== "" && city !== "" && street !== "" && province !== "" && country !== "" && zip !== "" && paymentMethod !== "") {
-			setIsActive(false);
-		} else {
-			setIsActive(true);
-		}
-	}, [blkLot, city, street, province, country, zip,paymentMethod]);
-
-	const handleConfirmOrder = () => {
-	    fetch(`${process.env.REACT_APP_API_URL}/users/${productId}/checkout`, {
+	    const response = await fetch(`${process.env.REACT_APP_API_URL}/users/checkoutCart`, {
 	      method: 'POST',
 	      headers: {
 	        'Content-Type': 'application/json',
 	        Authorization: `Bearer ${localStorage.getItem('token')}`,
 	      },
-	      body: JSON.stringify({
-	        blkLot: blkLot,
-	        street: street,
-	        city: city,
-	        province: province,
-	        zipCode: zip,
-	        country: country,
-	        quantity: quantity,
-	        paymentMethod: paymentMethod,
-	      }),
-	    })
-	      .then((result) => result.json())
-	      .then((data) => {
-	        if (data) {
-	          Swal.fire({
-	          	title: "Order Successful",
-	          	icon: "success",
-	          	text: "Happy Shopping!"
-	          })
-	        } else {
-	          Swal.fire({
-	          	title: "Order Failed",
-	          	icon: "warning",
-	          	text: "Please try Again"
-	          })
-	        }
-	      })
-	  };
+	      body: JSON.stringify(requestBody),
+	    });
+
+	    const data = await response.json();
+
+	    if (data.success) {
+	      Swal.fire({
+	        title: 'Checkout Successful',
+	        icon: 'success',
+	      });
+	    } else {
+	      Swal.fire({
+	        title: 'Checkout Failed',
+	        icon: 'error',
+	      });
+	    }
+	  } catch (error) {
+	    console.error('Checkout Error:', error);
+	    Swal.fire({
+	      title: 'Checkout Failed',
+	      icon: 'error',
+	    });
+	  }
+	};
 
 	return(
 		<>
@@ -259,47 +293,29 @@ export default function Checkout() {
 								<div className='d-flex flex-column flex-grow-1 ms-4 mb-5'>
 									<h4 id='checkout-header'>Your Cart</h4>
 									<div id='form-container' className='d-flex flex-column flex-grow-1 px-5 pt-5 pb-3'>
-										<div className="d-flex justify-content-between align-items-center">
-										  <div className='d-flex'>
-										    <div className='me-3' style={{ 
-										            height: '70px',
-										            width: '70px',
-										            backgroundImage: `url(${process.env.REACT_APP_API_URL}${image})`,
-										            backgroundSize: 'cover',
-										            backgroundPosition: 'center',
-										            borderRadius: '8px'
-										             }}>
-										    </div>
-										    <div>
-										      <h6>{name}</h6>
-										      <InputGroup className="me-3">
-										        <Button id='cart-input-group-button'className="bi bi-dash" onClick={handleSubtract}>
-										        </Button>
-										        <InputGroup.Text id='cart-items'>
-										          {quantity}
-										        </InputGroup.Text>
-										        <Button id='cart-input-group-button' className="bi bi-plus" onClick={handleAdd}>
-										        </Button>
-										      </InputGroup>
-										    </div>
-										  </div>
-										  <div>
-										    <p className='me-2'>₱{price}</p>
-										  </div>
-										</div>
-										<hr/>
+										{products.map((product) => (
+										  <ProductItems
+										    key={product._id}
+										    productData={product}
+										    updateTotalAmount={updateTotalAmount}
+										    removeFromCart={removeFromCart}
+										  />
+										))}
 										<div className='d-flex flex-column mt-auto'>
-										  <div className='d-flex justify-content-end'>
-										    <div>
-										      <InputGroup>
-										        <InputGroup.Text>₱</InputGroup.Text>
-										        <InputGroup.Text>{price}</InputGroup.Text>
-										      </InputGroup>
-										    </div>
-										  </div>
-										  <Button id='cart-input-group-button' onClick={handleConfirmOrder} disabled={isActive} className='w-100 mt-3'>
-										    Confirm Order
-										  </Button>
+											<div className='d-flex justify-content-end'>
+											  <div>
+											    <InputGroup>
+											      <InputGroup.Text>₱</InputGroup.Text>
+											      <InputGroup.Text>{totalAmount}</InputGroup.Text>
+											    </InputGroup>
+											  </div>
+											</div>
+											<Button id='cart-input-group-button' disabled={isActive}
+												onClick={handleCartCheckout}
+												className='mt-3'
+											>
+											  Confirm Order
+											</Button>
 										</div>
 									</div>
 								</div>

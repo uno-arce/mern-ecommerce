@@ -14,7 +14,7 @@ export default function PreviewProducts({data}) {
 		      <Card.Text>₱{price}</Card.Text>
 		    </Card.Body>
 		    <Card.Footer>
-		      <Button id='card-button' as={Link} to={`/products/${_id}`} className='w-100'>
+		      <Button id='card-button' as={Link} to={`/view/${_id}`} className='w-100'>
 		        See product
 		      </Button>
 		    </Card.Footer>

@@ -72,93 +72,89 @@ export default function EditProduct() {
 
 	return(
 		<>
-		<Container>
+		<Container fluid id='edit-product-header'>
 			<Row>
-				<Col className = "col-4 mx-auto m-5">
-				<h1 className = "text-center mb-5">Edit Product</h1>
-					<Form  onSubmit = {event => editProduct(event)} className = "p-2">
-						{/*Form Group for First Name*/}
-						<Form.Group className="mb-3" controlId="name">
-					       <Form.Label>Product Name</Form.Label>
-					       <Form.Control 
-					       		type="text" 
-					       		placeholder="Enter Name"
-					       		required
-					       		value = {name}
-					       		onChange = {event => {
-					       			//console.log(event);
-					       			setName(event.target.value);
-					       			//console.log(name)
+				<Col>
+					<Container>
+						<div className='d-flex flex-column py-5' style={{ maxWidth: '450px' }}>
+							<h1 className = "mb-5">Edit Product</h1>
+								<Form  onSubmit = {event => editProduct(event)} className = "p-2">
+									<Form.Group className="mb-3" controlId="name">
+								       <Form.Label>Product Name</Form.Label>
+								       <Form.Control 
+								       		type="text" 
+								       		placeholder="Enter Name"
+								       		required
+								       		value = {name}
+								       		onChange = {event => {
+								       			setName(event.target.value);
 
-					       		}}
-					       		/>
-					     </Form.Group>
+								       		}}
+								       		/>
+								     </Form.Group>
 
-					     <Form.Group className="mb-3" controlId="description">
-					       <Form.Label>Product Description</Form.Label>
-					       <Form.Control 
-					       		as="textarea" 
-					       		placeholder="Enter Description" 
-					       		required
-					       		value = {description}
-					       		onChange = {event => {
-					       			setDescription(event.target.value);
-					       		}}
-					       		/>
-					     </Form.Group>
+								     <Form.Group className="mb-3" controlId="description">
+								       <Form.Label>Product Description</Form.Label>
+								       <Form.Control 
+								       		as="textarea" 
+								       		placeholder="Enter Description" 
+								       		required
+								       		value = {description}
+								       		onChange = {event => {
+								       			setDescription(event.target.value);
+								       		}}
+								       		/>
+								     </Form.Group>
 
-					     <Form.Group className="mb-3" controlId="price">
-					       <Form.Label>Price</Form.Label>
-					       <InputGroup className="mb-3">
-					         <InputGroup.Text id="price-addon">&#8369;</InputGroup.Text>
-					         <Form.Control
-					           type="number"
-					           placeholder="Enter Price"
-					           aria-label="Price"
-					           aria-describedby="price-addon"
-					           required
-					           value={price}
-					           onChange={(event) => setPrice(event.target.value)}
-					         />
-					       </InputGroup>
-					     </Form.Group>
+								     <Form.Group className="mb-3" controlId="price">
+								       <Form.Label>Price</Form.Label>
+								       <InputGroup className="mb-3">
+								         <InputGroup.Text id="price-addon">&#8369;</InputGroup.Text>
+								         <Form.Control
+								           type="number"
+								           placeholder="Enter Price"
+								           aria-label="Price"
+								           aria-describedby="price-addon"
+								           required
+								           value={price}
+								           onChange={(event) => setPrice(event.target.value)}
+								         />
+								       </InputGroup>
+								     </Form.Group>
 
-					     <Form.Group className="mb-3" controlId="stocks">
-					       <Form.Label>Stocks</Form.Label>
-					       <InputGroup className="mb-3">
-					         <InputGroup.Text id="stocks-addon">
-					           #
-					         </InputGroup.Text>
-					         <Form.Control
-					           type="number"
-					           placeholder="Enter Stocks"
-					           aria-label="Stocks"
-					           aria-describedby="stocks-addon"
-					           required
-					           value={stocks}
-					           onChange={(event) => setStocks(event.target.value)}
-					         />
-					       </InputGroup>
-					     </Form.Group>
+								     <Form.Group className="mb-3" controlId="stocks">
+								       <Form.Label>Stocks</Form.Label>
+								       <InputGroup className="mb-3">
+								         <InputGroup.Text id="stocks-addon">
+								           #
+								         </InputGroup.Text>
+								         <Form.Control
+								           type="number"
+								           placeholder="Enter Stocks"
+								           aria-label="Stocks"
+								           aria-describedby="stocks-addon"
+								           required
+								           value={stocks}
+								           onChange={(event) => setStocks(event.target.value)}
+								         />
+								       </InputGroup>
+								     </Form.Group>
 
-					     <Form.Group className="mb-3" controlId="image">
-					        <Form.Label>Product Image</Form.Label>
-					          <Form.Control
-					            type="file"
-					            accept="image/*"
-					            onChange={(event) => setImage(event.target.files[0])} // Set the selected image file
-					            required />
-					     </Form.Group>
+								     <Form.Group controlId="image">
+								        <Form.Label>Product Image</Form.Label>
+								          <Form.Control
+								            type="file"
+								            accept="image/*"
+								            onChange={(event) => setImage(event.target.files[0])} // Set the selected image file
+								            required />
+								     </Form.Group>
 
-					     <Button disabled = {isActive} variant="primary" type="submit">
-					       Submit
-					     </Button>
-
-
-
-
-					   </Form>
-
+								     <Button id='dashboard-button' disabled = {isActive} className='mt-5 w-100' variant="primary" type="submit">
+								       Submit
+								     </Button>
+								   </Form>
+						</div>
+					</Container>
 				</Col>
 			</Row>
 		</Container>

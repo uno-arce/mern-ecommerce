@@ -269,7 +269,7 @@ h4 {
 	font-weight: bold;
 }
 
-#view-input-group-button, #cart-input-group-button {
+#view-input-group-button, #cart-input-group-button, #profile-button, #dashboard-button {
 	background-color: #474630;
 	border: none;
 }
@@ -335,4 +335,41 @@ h4 {
 #profile-view-container {
 	background-color: #FFFEE9;
 	color: #474630;
+}
+
+#change-profile-header, #create-product-header, #edit-product-header {
+	background-color: #FAF7CA;
+	color: #474630;
+	font-weight: bold;
+}
+
+#dashboard-header {
+	background-color: #FAF7CA;
+	color: #588548;
+	font-weight: bold;
+}
+
+#dashboard-title, #cart-title {
+	color: #2A571B;
+	font-weight: bold;
+}
+
+#dashboard-container, #cart-container {
+	background-color: #FFFEE9;
+	color: #474630;
+	height: 95vh;
+}
+
+#dashboard-product {
+	color: #474630;
+}
+
+#dashboard-product-body {
+	background-color: #FAF7CA;
+	color: #588548;
+	font-weight: bold;
+}
+
+#cart-header {
+	background-color: #FAF7CA;
 }

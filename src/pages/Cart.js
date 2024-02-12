@@ -15,7 +15,7 @@ export default function Cart() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/users/my-cart`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/users/my-cart`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -50,7 +50,7 @@ export default function Cart() {
 
   const removeFromCart = async (productId) => {
       try {
-        fetch(`${process.env.REACT_APP_API_URL}/users/my-cart/remove/${productId}`, {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/users/my-cart/remove/${productId}`, {
           method: 'PUT',
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -81,7 +81,7 @@ export default function Cart() {
 
   const handleUpdateAndCheckout = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/users/my-cart/update-cart`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/users/my-cart/update-cart`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

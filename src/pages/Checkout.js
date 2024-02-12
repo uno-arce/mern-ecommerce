@@ -27,7 +27,7 @@ export default function Checkout() {
 	const [isActive, setIsActive] = useState(true);
 
 	useEffect(() => {
-		fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/users/details`, {
 			method: "POST",
 			headers: {
 				'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -43,7 +43,7 @@ export default function Checkout() {
 			setZip(data.address.zipCode ?? '');
 		})
 
-		fetch(`${process.env.REACT_APP_API_URL}/products/${productId}`)
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/products/${productId}`)
 		.then(result => result.json())
 		.then(data => {
 			setName(data.productName);
@@ -55,7 +55,7 @@ export default function Checkout() {
 	}, []);
 
 	useEffect(() => {
-		fetch(`${process.env.REACT_APP_API_URL}/products/${productId}`)
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/products/${productId}`)
 		.then(result => result.json())
 		.then(data => {
 			setImage(data.image);
@@ -87,7 +87,7 @@ export default function Checkout() {
 	}, [blkLot, city, street, province, country, zip,paymentMethod]);
 
 	const handleConfirmOrder = () => {
-	    fetch(`${process.env.REACT_APP_API_URL}/users/${productId}/checkout`, {
+	    fetch(`${process.env.REACT_APP_API_BASE_URL}/users/${productId}/checkout`, {
 	      method: 'POST',
 	      headers: {
 	        'Content-Type': 'application/json',
@@ -264,7 +264,7 @@ export default function Checkout() {
 										    <div className='me-3' style={{ 
 										            height: '70px',
 										            width: '70px',
-										            backgroundImage: `url(${process.env.REACT_APP_API_URL}${image})`,
+										            backgroundImage: `url(${process.env.REACT_APP_API_BASE_URL}${image})`,
 										            backgroundSize: 'cover',
 										            backgroundPosition: 'center',
 										            borderRadius: '8px'

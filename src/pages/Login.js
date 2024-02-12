@@ -25,7 +25,7 @@ export default function Login() {
 	function loginUser(event) {
 		event.preventDefault();
 
-		fetch("http://ec2-3-16-181-70.us-east-2.compute.amazonaws.com/b2/users/login", {
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/users/login`, {
 			method: 'POST',
 			headers: {
 				"Content-Type" : "application/json"
@@ -62,7 +62,7 @@ export default function Login() {
 	}
 
 	const retrieveUserDetails = (token) => {
-		fetch('http://ec2-3-16-181-70.us-east-2.compute.amazonaws.com/b2/users/details', {
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/users/details`, {
 			method: "POST",
 			headers: {
 				'Authorization': `Bearer ${token}`

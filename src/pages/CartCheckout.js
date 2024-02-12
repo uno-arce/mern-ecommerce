@@ -28,7 +28,7 @@ export default function CartCheckout() {
 	}, [blkLot, city, street, province, country, zip,paymentMethod]);
 
 	const fetchData = () => {
-	  fetch(`${process.env.REACT_APP_API_URL}/users/my-cart`, {
+	  fetch(`${process.env.REACT_APP_API_BASE_URL}/users/my-cart`, {
 	    headers: {
 	      Authorization: `Bearer ${localStorage.getItem('token')}`,
 	    },
@@ -41,7 +41,7 @@ export default function CartCheckout() {
 	};
 
 	useEffect(() => {
-		fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/users/details`, {
 			method: "POST",
 			headers: {
 				'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -82,7 +82,7 @@ export default function CartCheckout() {
 
 	const removeFromCart = async (productId) => {
 	    try {
-	      fetch(`${process.env.REACT_APP_API_URL}/users/my-cart/remove/${productId}`, {
+	      fetch(`${process.env.REACT_APP_API_BASE_URL}/users/my-cart/remove/${productId}`, {
 	        method: 'PUT',
 	        headers: {
 	          Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -125,7 +125,7 @@ export default function CartCheckout() {
 	    products: products,
 	    };
 
-	    const response = await fetch(`${process.env.REACT_APP_API_URL}/users/checkoutCart`, {
+	    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/users/checkoutCart`, {
 	      method: 'POST',
 	      headers: {
 	        'Content-Type': 'application/json',

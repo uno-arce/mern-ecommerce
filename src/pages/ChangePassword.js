@@ -18,7 +18,7 @@ export default function ChangePassword() {
 	}, [newPassword, confirmNewPassword]);
 
 	const handleUpdate = () => {
-		fetch(`${process.env.REACT_APP_API_URL}/users/reset-password`, {
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/users/reset-password`, {
 		  method: 'PUT',
 		  headers: {
 		    'Content-Type': 'application/json',
@@ -59,6 +59,7 @@ export default function ChangePassword() {
 								  </InputGroup.Text>
 								  <DropdownButton
 								    id='product-button'
+								    title=''
 								  >
 								    <Dropdown.Item as = {Link} to = '/profile'>View Profile</Dropdown.Item>
 								    <Dropdown.Item as = {Link} to = '/profile/change-password'>Change Password</Dropdown.Item>

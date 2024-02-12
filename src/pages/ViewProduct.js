@@ -21,7 +21,7 @@ export default function ViewProduct() {
 	const [image, setImage] = useState(null);
 
 	useEffect(() => {
-		fetch(`${process.env.REACT_APP_API_URL}/products/${productId}`)
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/products/${productId}`)
 		.then(result => result.json())
 		.then(data => {
 			setName(data.productName);
@@ -68,7 +68,7 @@ export default function ViewProduct() {
 	}, [quantity])
 
 	const onSubmit = () => {
-		fetch(`${process.env.REACT_APP_API_URL}/users/${productId}/add-to-cart`, {
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/users/${productId}/add-to-cart`, {
 			method: 'POST',
 			headers: {
 				"Content-Type" : "application/json",
@@ -96,7 +96,7 @@ export default function ViewProduct() {
 								height: '400px',
 				    			width: '100%',
 				    			maxWidth: '650px',
-				    			backgroundImage: `url(${process.env.REACT_APP_API_URL}${image})`,
+				    			backgroundImage: `url(${process.env.REACT_APP_API_BASE_URL}${image})`,
 				    			backgroundSize: 'cover',
 				    			backgroundPosition: 'center',
 				    	 		}}>

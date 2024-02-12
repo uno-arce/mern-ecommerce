@@ -8,7 +8,7 @@ export default function ShopView() {
 	const [productRows, setProductRows] = useState([]);
 
 	useEffect(() => {
-		fetch(`${process.env.REACT_APP_API_URL}/products/`)
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/products/`)
 		.then(result => result.json())
 		.then(data => {
 			setProducts(data)
@@ -22,7 +22,7 @@ export default function ShopView() {
 				  <div className='d-flex flex-column'>
 				    <div className='bg-body-tertiary mb-3' style={{ 
 				    	height: '300px',
-				    	backgroundImage: `url(${process.env.REACT_APP_API_URL}${product.image})`,
+				    	backgroundImage: `url(${process.env.REACT_APP_API_BASE_URL}${product.image})`,
 				    	backgroundSize: 'cover',
 				    	backgroundPosition: 'center',
 				    	 }}>

@@ -25,7 +25,7 @@ export default function EditProfile() {
 	const [isDisabled, setIsDisabled] = useState(true);
 
 	useEffect(() => {
-		fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/users/details`, {
 			method: "POST",
 			headers: {
 				'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -60,7 +60,7 @@ export default function EditProfile() {
 	}, [firstName, lastName, mobileNumber, blkLot, city, street, province, country, zip]);
 
 	const handleUpdate = () => {
-		fetch(`${process.env.REACT_APP_API_URL}/users/update-profile`, {
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/users/update-profile`, {
 		  method: 'PUT',
 		  headers: {
 		    'Content-Type': 'application/json',

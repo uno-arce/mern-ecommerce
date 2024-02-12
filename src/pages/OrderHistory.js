@@ -6,7 +6,7 @@ export default function OrderHistory() {
   const [orderHistoryView, setOrderHistoryView] = useState(null);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/users/my-orders`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/users/my-orders`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },

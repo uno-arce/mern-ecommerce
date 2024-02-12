@@ -37,7 +37,7 @@ export default function AddProduct() {
         formData.append('stocks', stocks.toString());
         formData.append('image', image);
 
-		fetch(`${process.env.REACT_APP_API_URL}/products/create-product`, {
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/products/create-product`, {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('token')}`

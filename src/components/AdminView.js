@@ -12,7 +12,7 @@ export default function AdminView() {
 	const [productRows, setProductRows] = useState([]);
 
 	const fetchData = () => {
-		fetch(`${process.env.REACT_APP_API_URL}/products/all`, {
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/products/all`, {
 			headers: {
 				Authorization : `Bearer ${localStorage.getItem('token')}`
 			}

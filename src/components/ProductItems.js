@@ -22,7 +22,7 @@ export default function ProductItems({ productData, updateTotalAmount, removeFro
         <div className='me-3' style={{ 
                 height: '70px',
                 width: '70px',
-                backgroundImage: `url(${process.env.REACT_APP_API_URL}${image})`,
+                backgroundImage: `url(${process.env.REACT_APP_API_BASE_URL}${image})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 borderRadius: '8px'

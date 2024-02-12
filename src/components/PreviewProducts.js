@@ -8,7 +8,7 @@ export default function PreviewProducts({data}) {
 	return(
 		<Col>
 		  <Card>
-		    <Card.Img variant="top" src={`${process.env.REACT_APP_API_URL}${image}`} />
+		    <Card.Img variant="top" src={`${process.env.REACT_APP_API_BASE_URL}${image}`} />
 		    <Card.Body>
 		      <Card.Title>{productName}</Card.Title>
 		      <Card.Text>₱{price}</Card.Text>

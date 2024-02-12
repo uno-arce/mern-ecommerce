@@ -31,7 +31,7 @@ export default function Register() {
 	function registerUser(event) {
 		event.preventDefault();
 
-		fetch("http://ec2-3-16-181-70.us-east-2.compute.amazonaws.com/b2/users/register", {
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/users/register`, {
 			method: 'POST',
 			headers: {
 				"Content-Type" : "application/json"

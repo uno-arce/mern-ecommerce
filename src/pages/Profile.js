@@ -12,7 +12,7 @@ export default function Profile() {
 	const [profileView, setProfileView] = useState(null);
 
 	useEffect(() => {
-		fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/users/details`, {
 			method: "POST",
 			headers: {
 				'Authorization': `Bearer ${localStorage.getItem('token')}`

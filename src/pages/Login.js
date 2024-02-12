@@ -1,8 +1,8 @@
 import {Button, Form, Container, Row, Col} from 'react-bootstrap';
 import {useState, useEffect, useContext} from 'react';
-
+import AppFooter from '../components/AppFooter.js';
 import UserContext from '../UserContext.js';
-import {useNavigate, Navigate} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 
 import Swal from 'sweetalert2';
 
@@ -13,7 +13,6 @@ export default function Login() {
 	const [isActive, setIsActive] = useState(true);
 
 	const {user, setUser} = useContext(UserContext);
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		if(email !== "" && password !== "" ) {
@@ -81,41 +80,51 @@ export default function Login() {
 	return(
 		(user.id !== null) ? <Navigate to = {user.role !== 'Admin' ? '/' : '/dashboard'}/>
 		:
-		<Container fluid>
+		<>
+		<Container fluid id='login-container'>
 			<Row>
-				<Col className='col-3 p-4'>
-					<h2 className='text-center'>Digibees</h2>
-					<h2 className='text-center my-5'>Login your account</h2>
-					<Form onSubmit={event => loginUser(event)}>
-					  <Form.Group className="mb-3" controlId="email">
-					    <Form.Label>Email</Form.Label>
-					    <Form.Control type="text"
-					    required
-					    value = {email} 
-					    onChange = {event => {
-					    	setEmail(event.target.value);
-					    }}
-					     />
-					  </Form.Group>
-
-					  <Form.Group className="mb-3" controlId="password">
-					    <Form.Label>Password</Form.Label>
-					    <Form.Control type="password"
-					    required
-					    value = {password} 
-					    onChange = {event => {
-					    	setPassword(event.target.value);
-					    }}
-					     />
-					  </Form.Group>
-					  <Button disabled={isActive} variant="primary" type="submit">
-					    Submit
-					  </Button>
-					</Form>
-				</Col>
 				<Col>
+					<Container>
+						<div className='d-flex justify-content-center mb-5'>
+							<div className='d-flex flex-column'>
+								<h2 id='login-title' className='my-5'>Login your account</h2>
+								<Form onSubmit={event => loginUser(event)}>
+								  <Form.Group className="mb-3" controlId="email">
+								    <Form.Label>Email</Form.Label>
+								    <Form.Control type="text"
+								    required
+								    value = {email} 
+								    onChange = {event => {
+								    	setEmail(event.target.value);
+								    }}
+								     />
+								  </Form.Group>
+
+								  <Form.Group className="mb-3" controlId="password">
+								    <Form.Label>Password</Form.Label>
+								    <Form.Control type="password"
+								    required
+								    value = {password} 
+								    onChange = {event => {
+								    	setPassword(event.target.value);
+								    }}
+								     />
+								  </Form.Group>
+								  <Button id='view-input-group-button' className='w-100' disabled={isActive} variant="primary" type="submit">
+								    Login
+								  </Button>
+								</Form>
+							</div>
+						</div>
+					</Container>
 				</Col>
 			</Row>
 		</Container>
+		<Container fluid id='login-callout'>
+		</Container>
+		<Container fluid id='footer'>
+			<AppFooter/>
+		</Container>
+		</>
 	);
 }

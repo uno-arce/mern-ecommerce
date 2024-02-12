@@ -140,7 +140,7 @@ export default function ViewProduct() {
 									    <InputGroup>
 									      <InputGroup.Text id='view-input-group-icon' className="bi bi-bag"></InputGroup.Text>
 									      <Button id='view-input-group-button' as = {Link} 
-									      to = {user.role === 'Admin' ? `/view/${productId}` : `/${productId}/${quantity}/checkout`} 
+									      to = {user.role === 'User' ? `/${productId}/${quantity}/checkout` : null} 
 									      variant='dark'>
 									        Checkout
 									      </Button>

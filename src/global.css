@@ -373,3 +373,38 @@ h4 {
 #cart-header {
 	background-color: #FAF7CA;
 }
+
+#order-history-container {
+	background-color: #FFFEE9;
+	color: #474630;
+}
+
+#order-history-bold, #login-title {
+	font-weight: bold;
+}
+
+#order-history-small {
+	font-size: 14px;
+}
+
+#login-container {
+	background-color: #FAF7CA;
+	color: #474630;
+	font-weight: bold;
+}
+
+#login-callout {
+  background-color: #FAF7CA;
+  background-image: url('./images/callout-quote.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  height: 400px;
+  width: 100%;
+}
+
+@media (max-width: 1199.98px) {
+  #login-callout {
+    background-image: none;
+  }
+}

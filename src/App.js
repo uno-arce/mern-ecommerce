@@ -16,6 +16,7 @@ import EditProfile from './pages/EditProfile.js';
 import ChangePassword from './pages/ChangePassword.js';
 import Cart from './pages/Cart.js';
 import CartCheckout from './pages/CartCheckout.js';
+import OrderHistory from './pages/OrderHistory.js';
 
 // Routing
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
@@ -69,7 +70,7 @@ function App() {
         role: null
       });
     }
-  }, []);
+  }, [token]);
 
   return (
     <UserProvider value = {{user, setUser, unSetUser}}>
@@ -91,6 +92,7 @@ function App() {
           <Route path='/profile/change-password' element={<ChangePassword/>}/>
           <Route path='/cart' element={<Cart/>}/>
           <Route path='/cart/checkout' element={<CartCheckout/>}/>
+          <Route path='/my-orders' element={<OrderHistory/>}/>
         </Routes>
       </Router>
     </UserProvider>

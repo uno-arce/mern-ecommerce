@@ -1,5 +1,5 @@
-import {Container, Row, Col, Button, InputGroup, Dropdown, DropdownButton} from 'react-bootstrap';
-import {useState, useEffect, useContext} from 'react';
+import {Container, Row, Col, InputGroup, Dropdown, DropdownButton} from 'react-bootstrap';
+import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 
 import ProfileView from '../components/ProfileView.js';
@@ -9,7 +9,6 @@ export default function Profile() {
 	const [lastName, setLastName] = useState('');
 	const [role, setRole] = useState('');
 	const [createdOn, setCreatedOn] = useState('');
-	const [data, setData] = useState({});
 	const [profileView, setProfileView] = useState(null);
 
 	useEffect(() => {
@@ -27,8 +26,6 @@ export default function Profile() {
 
 			const formattedDate = new Date(data.createdOn).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 			setCreatedOn(formattedDate);
-
-			setData(data);
 
 			setProfileView(<ProfileView userData={data} />);
 		})
@@ -65,6 +62,8 @@ export default function Profile() {
 								  >
 								    <Dropdown.Item as = {Link} to = '/profile/edit'>Edit Profile</Dropdown.Item>
 								    <Dropdown.Item as = {Link} to = '/profile/change-password'>Change Password</Dropdown.Item>
+								    <hr/>
+								    <Dropdown.Item as = {Link} to = '/my-orders'>Order History</Dropdown.Item>
 								  </DropdownButton>
 								</InputGroup>
 							</div>

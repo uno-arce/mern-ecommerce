@@ -1,4 +1,4 @@
-import {Container, Row, Col, Button, Form} from 'react-bootstrap';
+import {Container, Row, Col, Form} from 'react-bootstrap';
 
 export default function ProfileView({userData}) {
 	return(
@@ -8,6 +8,7 @@ export default function ProfileView({userData}) {
 					<Col>
 						<Container>
 							<div className='d-flex flex-column mt-5 pb-5'>
+								
 								<h4>Profile</h4>
 								<hr/>
 								<div className=' d-flex justify-content-start mt-3' style={{ maxWidth: '450px' }}>

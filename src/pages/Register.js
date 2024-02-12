@@ -1,6 +1,6 @@
 import {Button, Form, Container, Row, Col} from 'react-bootstrap';
 import {useState, useEffect, useContext} from 'react';
-
+import AppFooter from '../components/AppFooter.js';
 import {Navigate, useNavigate} from 'react-router-dom';
 import UserContext from '../UserContext.js';
 
@@ -74,97 +74,105 @@ export default function Register() {
 	return(
 		(user.id !== null) ? <Navigate to = '/'/>
 		:
-		<Container fluid>
+		<>
+		<Container fluid id='login-container'>
 			<Row>
-				<Col className='col-3 p-4'>
-					<h2 className='text-center'>Digibees</h2>
-					<h2 className='text-center my-5'>Register an account</h2>
-					<Form onSubmit={event => registerUser(event)}>
-					  <Form.Group className="mb-3" controlId="firstName">
-					    <Form.Label>First Name</Form.Label>
-					    <Form.Control type="text" 
-					    required
-					    value = {firstName} 
-					    onChange = {event => {
-					    	setFirstName(event.target.value);
-					    }}
-					     />
-					  </Form.Group>
-
-					  <Form.Group className="mb-3" controlId="lastName">
-					    <Form.Label>Last Name</Form.Label>
-					    <Form.Control type="text"
-					    required
-					    value = {lastName} 
-					    onChange = {event => {
-					    	setLastName(event.target.value);
-					    }}
-					     />
-					  </Form.Group>
-
-					  <Form.Group className="mb-3" controlId="username">
-					    <Form.Label>Username</Form.Label>
-					    <Form.Control type="text"
-					    required
-					    value = {username} 
-					    onChange = {event => {
-					    	setUsername(event.target.value);
-					    }}
-					     />
-					  </Form.Group>
-
-					  <Form.Group className="mb-3" controlId="mobileNumber">
-					    <Form.Label>Mobile Number</Form.Label>
-					    <Form.Control type="text"
-					    required
-					    value = {mobileNumber} 
-					    onChange = {event => {
-					    	setMobileNumber(event.target.value);
-					    }}
-					     />
-					  </Form.Group>
-
-					  <Form.Group className="mb-3" controlId="email">
-					    <Form.Label>Email</Form.Label>
-					    <Form.Control type="text"
-					    required
-					    value = {email} 
-					    onChange = {event => {
-					    	setEmail(event.target.value);
-					    }}
-					     />
-					  </Form.Group>
-
-					  <Form.Group className="mb-3" controlId="password">
-					    <Form.Label>Password</Form.Label>
-					    <Form.Control type="text"
-					    required
-					    value = {password} 
-					    onChange = {event => {
-					    	setPassword(event.target.value);
-					    }}
-					     />
-					  </Form.Group>
-
-					  <Form.Group className="mb-3" controlId="confirmPassword">
-					    <Form.Label>Confirm Password</Form.Label>
-					    <Form.Control type="text"
-					    required
-					    value = {confirmPassword} 
-					    onChange = {event => {
-					    	setConfirmPassword(event.target.value);
-					    }}
-					     />
-					  </Form.Group>
-
-					  <Button disabled={isActive} variant="primary" type="submit">
-					    Submit
-					  </Button>
-					</Form>
-				</Col>
 				<Col>
+					<Container>
+						<div className='d-flex justify-content-center mb-5'>
+							<div className='d-flex flex-column'>
+								<h2 id='login-title' className='text-center my-5'>Register an account</h2>
+								<Form onSubmit={event => registerUser(event)}>
+								  <Form.Group className="mb-3" controlId="firstName">
+								    <Form.Label>First Name</Form.Label>
+								    <Form.Control type="text" 
+								    required
+								    value = {firstName} 
+								    onChange = {event => {
+								    	setFirstName(event.target.value);
+								    }}
+								     />
+								  </Form.Group>
+
+								  <Form.Group className="mb-3" controlId="lastName">
+								    <Form.Label>Last Name</Form.Label>
+								    <Form.Control type="text"
+								    required
+								    value = {lastName} 
+								    onChange = {event => {
+								    	setLastName(event.target.value);
+								    }}
+								     />
+								  </Form.Group>
+
+								  <Form.Group className="mb-3" controlId="username">
+								    <Form.Label>Username</Form.Label>
+								    <Form.Control type="text"
+								    required
+								    value = {username} 
+								    onChange = {event => {
+								    	setUsername(event.target.value);
+								    }}
+								     />
+								  </Form.Group>
+
+								  <Form.Group className="mb-3" controlId="mobileNumber">
+								    <Form.Label>Mobile Number</Form.Label>
+								    <Form.Control type="text"
+								    required
+								    value = {mobileNumber} 
+								    onChange = {event => {
+								    	setMobileNumber(event.target.value);
+								    }}
+								     />
+								  </Form.Group>
+
+								  <Form.Group className="mb-3" controlId="email">
+								    <Form.Label>Email</Form.Label>
+								    <Form.Control type="text"
+								    required
+								    value = {email} 
+								    onChange = {event => {
+								    	setEmail(event.target.value);
+								    }}
+								     />
+								  </Form.Group>
+
+								  <Form.Group className="mb-3" controlId="password">
+								    <Form.Label>Password</Form.Label>
+								    <Form.Control type="text"
+								    required
+								    value = {password} 
+								    onChange = {event => {
+								    	setPassword(event.target.value);
+								    }}
+								     />
+								  </Form.Group>
+
+								  <Form.Group className="mb-3" controlId="confirmPassword">
+								    <Form.Label>Confirm Password</Form.Label>
+								    <Form.Control type="text"
+								    required
+								    value = {confirmPassword} 
+								    onChange = {event => {
+								    	setConfirmPassword(event.target.value);
+								    }}
+								     />
+								  </Form.Group>
+
+								  <Button id='view-input-group-button' className='w-100 mt-2' disabled={isActive} variant="primary" type="submit">
+								    Submit
+								  </Button>
+								</Form>
+							</div>
+						</div>
+					</Container>
 				</Col>
 			</Row>
 		</Container>
+		<Container fluid id='footer'>
+			<AppFooter/>
+		</Container>
+		</>
 	);
 }

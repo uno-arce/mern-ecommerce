@@ -43,7 +43,7 @@ function App() {
 
   useEffect(() => {
     if (token) {
-      fetch('http://ec2-3-16-181-70.us-east-2.compute.amazonaws.com/b2/users/details', {
+      fetch(`${process.env.REACT_APP_API_BASE_URL}/users/details`, {
         method: "POST",
         headers: {
           'Authorization': `Bearer ${token}`

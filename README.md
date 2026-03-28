@@ -8,31 +8,34 @@ username: admin@gmail.com
 password: 1234  
 2. **User**  
 username: uno@mail.com  
-password: 1234  
+password: 1234
 
-## What's Inside
-**Folder Structure**  
--- src  
-&emsp;-- components  
-&emsp;-- images  
-&emsp;-- pages  
-&emsp;-- UserContext
-
-**Dependencies**
-- React
-- Bootstrap
-- React Router
-- Marquee
-- Sweet Alert
-
-## Functionalities
+## Key Functionalities
 **Key Functionalities**
-- User Authentication
-- Data Hydration
+- Stateless Token-Based Authentication using JSON Web Token
+- Data Hydration and State Management using React Context Provider
 - User Role Management
 - Product Management
   
 **Accessibility Functionalities**
 - Landing Page
-- Mobile Responsiveness
+- Mobile Responsiveness for various screen sizes
 - Dynamic Routing
+
+## What's Inside
+**Dependencies**
+| Package | Purpose |
+| --- | --- |
+| `@react/bootstrap` | Frontend Framework |
+| `react-router` | Dynamic Client-Side Routing |
+| `Marquee` | Component Animation |
+| `Sweet Alert` | Alert Popovers |
+
+**Folder Structure**  
+```
+src/
+├── images         # Images 
+├── components     # Reusable and standalone components
+├── pages          # Individual routes screens or UI
+├── App.css        # Component styles
+```
